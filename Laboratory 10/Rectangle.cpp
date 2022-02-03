@@ -13,8 +13,7 @@ namespace mt
             m_shape = new sf::RectangleShape(sf::Vector2f(m_a, m_a));
             m_shape->setOrigin(m_a / 2, m_a / 2);
             m_shape->setFillColor(sf::Color::White);
-            m_shape->setPosition(m_x, m_y);
-           
+            m_shape->setPosition(m_x, m_y);  
         }
 
 

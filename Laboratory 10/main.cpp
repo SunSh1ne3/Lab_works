@@ -35,7 +35,7 @@ int main()
     std::vector<mt::Rectangle*> Rectangles;
     for (int i = 0; i < y0; i += y0 / N)
     {
-        Rectangles.push_back(new Rectangle(x0 - a / 2, i + a, a, rand() % 10 + 1, T));
+        Rectangles.push_back(new Rectangle(x0 - a / 2, i + a, a, rand() % 15+10, T));
     }
 
     //окошко
