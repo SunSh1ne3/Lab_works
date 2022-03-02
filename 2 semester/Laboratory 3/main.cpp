@@ -112,7 +112,7 @@ double Bisection(double a, double b)
 	while (1)
 	{
 		double x = (a + b) / 2;
-		if ((abs(x - a) < eps) & (abs(x - b) < eps))
+		if ((abs(x - a) < eps) && (abs(x - b) < eps))
 		{
 			return x;
 		}
