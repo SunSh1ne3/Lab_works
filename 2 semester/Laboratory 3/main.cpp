@@ -77,23 +77,23 @@ int Binarn_Search(int low, int high, int* x, int k)
 	{
 		return -1;
 	}
-	int a = 0;
-	int b = N - 1;
-	while ((a + 1) < b) 
+	int left = 0;
+	int right = N - 1;
+	while ((left + 1) < right) 
 	{
-		int c = floor((a + b) / 2);
+		int c = floor((left + right) / 2);
 		if (k > x[c])
 		{
-			a = c;
+			left = c;
 		}
 		else
 		{
-			b = c;
+			right = c;
 		}
 	}
-	if (x[b] == k)
+	if (x[right] == k)
 	{
-		return b;
+		return right;
 	}
 	else
 	{
@@ -103,7 +103,7 @@ int Binarn_Search(int low, int high, int* x, int k)
 
 double f(double x)
 {
-	return log(x) - 1;
+	return 2*x - 1;
 }
 
 double Bisection(double a, double b)
@@ -116,7 +116,7 @@ double Bisection(double a, double b)
 		{
 			return x;
 		}
-		else if (f(x) * f(a) > 0)
+		else if (f(a) * f(x) > 0)
 		{
 			a = x;
 		}
@@ -136,7 +136,7 @@ int main()
 	double a, b = 0;
 	for (int i = 0; i < N; i++)
 	{
-		x[i] = rand();
+		x[i] = rand()%50;
 	}
 	Quick_Sort(0, N-1, x);
 
