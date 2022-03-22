@@ -1,8 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <chrono>
-const int N = 10000;
-const int M = 1000;
+const int M = 4;
 
 using namespace std;
 
@@ -45,7 +44,7 @@ void ADD(T_List* head, int age)
 	head->next = p;
 }
 
-void SEARCH(T_List* head, int key)
+bool SEARCH(T_List* head, int key)
 {
 	T_List* p = head;
 	while (p != nullptr)
@@ -53,10 +52,11 @@ void SEARCH(T_List* head, int key)
 		p = p->next;
 		if (p->data == key)
 		{
-			//cout <<"Yeah! " << p->data << endl;
-			break;
+			cout << "Yeah! " << endl;
+			return true;
 		}
 	}
+	return false;
 }
 
 void CLEAR(T_List* head)
@@ -71,60 +71,87 @@ void CLEAR(T_List* head)
 	}
 }
 
+void PRINT(T_List* head)
+{
+	T_List* p = head->next;
+	while (p != nullptr)
+	{
+		cout << p->data << " ";
+		p = p->next;
+	}
+}
 
 int main()
 {
 	srand(time(NULL));
 	setlocale(LC_ALL, "Rus");
+	cout << "Введите количество элементов" << endl;
+	int n; cin >> n;
 	T_List* head = new T_List;
 	head->next = nullptr;
-	int mas[N];
-	int key;
+	int* mas = new int[n];
+
+	//заводим данные в спсиок
+	for (int i = 0; i < n; i++)
+	{
+		mas[i] = rand() % 10 + 1;
+		ADD(head, mas[i]);
+	}
+
+	PRINT(head);
+	cout << endl;
 
 	cout << "Что ищем? (числа от 1 до 10)" << endl;
-	cin >> key;
+	int key; cin >> key;
 	if ((key < 1) || (key > 10))
 	{
 		cout << "Читай внимательнее!" << endl;
 		return 1;
 	}
-
-	//заводим данные в спсиок
-	for (int i = 0; i < N; i++)
-	{
-		ADD(head, rand() % 10 + 1);
-	}
 	
 	Timer a;
 	//поиск в списке
-	for (int i = 0; i < M; i++)
-	{
-		SEARCH(head, key);
-	}
+	
+	SEARCH(head, key);
+	
 	cout << " Time T_List: " << a.elapsed() << endl;
 
-	//заводим данныфе в массив
-	for (int i = 0; i < N; i++)
+	cout << "Вывод массива: " << endl;
+	for (int i = 0; i < n; i++)
 	{
-		mas[i]= rand() % 10 + 1;
+		cout << mas[i] << " ";
 	}
+	cout << endl;
 
+	int L = 0;
 	a.reset();
 	//поиск в массиве
 	for (int i = 0; i < M; i++)
 	{
-		for (int j = 0; j < N; j++)
+		key = rand() % 10;
+		for (int j = 0; j < n; j++)
 		{
 			if (mas[j] == key)
 			{
-				//cout << "Yeah! " << endl;
-				break;
+				L = 1;
 			}
 		}
+		if (L == 1)
+		{
+			cout <<key<< " Yeah! " << endl;
+			L = 0;
+		}
+		else
+		{
+			cout << key << " NO" << endl;
+		}
 	}
+	
 	cout << " Time mas: " << a.elapsed() << endl;
+
 	
 	CLEAR(head);
 	delete head;
+	delete [] mas;
 	return 0;
 }
