@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <chrono>
-const int M = 4;
+int M = 4;
 
 using namespace std;
 
@@ -148,7 +148,6 @@ int main()
 	}
 	
 	cout << " Time mas: " << a.elapsed() << endl;
-
 	
 	CLEAR(head);
 	delete head;

@@ -103,7 +103,7 @@ int Binarn_Search(int low, int high, int* x, int k)
 
 double f(double x)
 {
-	return 2*x - 1;
+	return log(x) - 1;
 }
 
 double Bisection(double a, double b)
@@ -116,7 +116,7 @@ double Bisection(double a, double b)
 		{
 			return x;
 		}
-		else if (f(a) * f(x) > 0)
+		else if (f(x) * f(a) > 0)
 		{
 			a = x;
 		}

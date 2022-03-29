@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <chrono>
-const int N = 10000;
-const int M = 1000;
+#include <fstream>
+int N = 10000;
+int M = 1000;
 
 using namespace std;
 
@@ -70,18 +71,18 @@ void ADD(int data, Elem*& root)
         v->right = u;
 }
  
-void PASS(Elem* v)
+void PASS(Elem* v) //вывод
 {
     if (v == nullptr)
         return;
-    std::cout << v->data << std::endl;
+    cout << v->data << " ";
     PASS(v->left);
 
     PASS(v->right);
-   
+  
 }
 
-Elem* SEARCH(int data, Elem* v)  
+Elem* SEARCH(int data, Elem* v) // поиск простой    
 {
     if (v == nullptr)
         return v;
@@ -93,6 +94,28 @@ Elem* SEARCH(int data, Elem* v)
         return SEARCH(data, v->right);
 }
 
+Elem* Search(int data, Elem* v,int number) // поиск с номером
+{
+    ofstream out("output.txt");
+    if (v == nullptr)
+    {
+        out << data << " - n " << endl;
+        cout << data << " - n " << endl;
+        return v;
+    }
+        
+    else if (v->data == data)
+    {
+        cout << "data - " << number << endl;;
+        out << "data - " << number << endl;
+        return v;
+    }
+        
+    else if (data < v->data)
+        return Search(data, v->left, number+1);
+    else
+        return Search(data, v->right, number+1);
+}
 
 void DELETE(int data, Elem*& root)
 {  
@@ -162,6 +185,44 @@ void CLEAR(Elem*& v)
 
 int main()
 {
+    Elem* root = nullptr;
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+    char a;
+    int b;
 
+    while (!in.eof())
+    {
+        in >> a;
+        in >> b;
+        if (a == '+')
+        {
+            ADD(b, root);
+            cout << "+ " << b << endl;
+            cout << " Tree: " << endl;
+            PASS(root);
+            cout << endl;
+        }
+        else if (a == '?')
+        {
+            Search(b, root, 1);
+        }
+        else if (a == '-')
+        {
+            DELETE(b, root);
+            cout << "- " << b << endl;
+            cout << " Tree: " << endl;
+            PASS(root);
+            cout << endl;
+        }
+        else if (a == 'E')
+        {
+            break;
+        }
+    }
+    cout << "======" << endl;
+    PASS(root);
+
+    CLEAR(root);
 	return 0;
 }
