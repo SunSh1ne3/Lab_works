@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <chrono>
 #include <fstream>
+#include <iomanip>
+
 int N = 10000;
 int M = 1000;
 
@@ -75,12 +77,52 @@ void PASS(Elem* v) //вывод
 {
     if (v == nullptr)
         return;
-    cout << v->data << " ";
+    
     PASS(v->left);
-
+cout << v->data << " ";
     PASS(v->right);
   
 }
+
+void print_Tree(Elem* v, int level)
+{
+    if (v == nullptr)
+    {
+        return;
+    }   
+        print_Tree(v->right, level + 1);
+        for (int i = 0; i < level; i++) 
+            cout << "   ";
+        cout << v->data  << endl;
+        print_Tree(v->left, level + 1);
+}
+void Print(Elem* v, int level)
+{
+    if (v == nullptr)
+    {
+        return;
+    }
+    cout << setw(level) << ' ';
+    for (int i = 0; i < level; i++)
+    {
+        if (v->left != nullptr)
+        {
+            cout << v->left->data << "  ";
+
+        }
+        if (v->right != nullptr)
+        {
+            cout << v->right->data << "  ";
+
+        }
+        cout << endl;
+    }
+    v = v->left;
+    Print(v, level + 1);
+}
+
+
+
 
 Elem* SEARCH(int data, Elem* v) // поиск простой    
 {
@@ -106,8 +148,8 @@ Elem* Search(int data, Elem* v,int number) // поиск с номером
         
     else if (v->data == data)
     {
-        cout << "data - " << number << endl;;
-        out << "data - " << number << endl;
+        cout << v-> data << " in depth -  " << number << endl;;
+        out << v->data << " in depth - " << number << endl;;
         return v;
     }
         
@@ -200,7 +242,8 @@ int main()
             ADD(b, root);
             cout << "+ " << b << endl;
             cout << " Tree: " << endl;
-            PASS(root);
+            print_Tree(root, 1);
+           // PASS(root);
             cout << endl;
         }
         else if (a == '?')
@@ -212,7 +255,8 @@ int main()
             DELETE(b, root);
             cout << "- " << b << endl;
             cout << " Tree: " << endl;
-            PASS(root);
+            print_Tree(root, 1);
+           //PASS(root);
             cout << endl;
         }
         else if (a == 'E')
@@ -222,7 +266,10 @@ int main()
     }
     cout << "======" << endl;
     PASS(root);
-
+    cout << endl << "======" << endl;
+    print_Tree(root, 0);
+    cout << endl << "======" << endl;
+    Print(root, 1);
     CLEAR(root);
 	return 0;
 }
