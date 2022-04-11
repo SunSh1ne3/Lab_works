@@ -96,33 +96,6 @@ void print_Tree(Elem* v, int level)
         cout << v->data  << endl;
         print_Tree(v->left, level + 1);
 }
-void Print(Elem* v, int level)
-{
-    if (v == nullptr)
-    {
-        return;
-    }
-    cout << setw(level) << ' ';
-    for (int i = 0; i < level; i++)
-    {
-        if (v->left != nullptr)
-        {
-            cout << v->left->data << "  ";
-
-        }
-        if (v->right != nullptr)
-        {
-            cout << v->right->data << "  ";
-
-        }
-        cout << endl;
-    }
-    v = v->left;
-    Print(v, level + 1);
-}
-
-
-
 
 Elem* SEARCH(int data, Elem* v) // поиск простой    
 {
@@ -190,7 +163,7 @@ void DELETE(int data, Elem*& root)
         u = t;
     }
 
-    if (u->left != nullptr && u->right != nullptr)
+    if (u->left != nullptr && u->right != nullptr && u==root)
     {
         Elem* t = u->right;
         while (t->left != nullptr)
@@ -229,7 +202,6 @@ int main()
 {
     Elem* root = nullptr;
     ifstream in("input.txt");
-    ofstream out("output.txt");
     char a;
     int b;
 
@@ -243,7 +215,6 @@ int main()
             cout << "+ " << b << endl;
             cout << " Tree: " << endl;
             print_Tree(root, 1);
-           // PASS(root);
             cout << endl;
         }
         else if (a == '?')
@@ -256,7 +227,6 @@ int main()
             cout << "- " << b << endl;
             cout << " Tree: " << endl;
             print_Tree(root, 1);
-           //PASS(root);
             cout << endl;
         }
         else if (a == 'E')
@@ -265,11 +235,7 @@ int main()
         }
     }
     cout << "======" << endl;
-    PASS(root);
-    cout << endl << "======" << endl;
     print_Tree(root, 0);
-    cout << endl << "======" << endl;
-    Print(root, 1);
     CLEAR(root);
 	return 0;
 }

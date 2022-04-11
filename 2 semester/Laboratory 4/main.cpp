@@ -52,8 +52,13 @@ bool SEARCH(T_List* head, int key)
 		p = p->next;
 		if (p->data == key)
 		{
-			cout << "Yeah! " << endl;
+			cout << p->data << " Yeah! " << endl;
 			return true;
+		}
+		else
+		{
+			cout << p->data << " No " << endl;
+			return false;
 		}
 	}
 	return false;
@@ -85,6 +90,7 @@ int main()
 {
 	srand(time(NULL));
 	setlocale(LC_ALL, "Rus");
+	int key = 0;
 	cout << "Введите количество элементов" << endl;
 	int n; cin >> n;
 	T_List* head = new T_List;
@@ -100,19 +106,16 @@ int main()
 
 	PRINT(head);
 	cout << endl;
-
-	cout << "Что ищем? (числа от 1 до 10)" << endl;
-	int key; cin >> key;
-	if ((key < 1) || (key > 10))
-	{
-		cout << "Читай внимательнее!" << endl;
-		return 1;
-	}
 	
 	Timer a;
+	//не доделано!
 	//поиск в списке
+	for (int i = 0; i < M; i++)
+	{
+		key = rand() % 10 + 1;
+		SEARCH(head, key);
+	}
 	
-	SEARCH(head, key);
 	
 	cout << " Time T_List: " << a.elapsed() << endl;
 
