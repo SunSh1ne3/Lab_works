@@ -96,6 +96,7 @@ int main()
 	T_List* head = new T_List;
 	head->next = nullptr;
 	int* mas = new int[n];
+	int* k = new int[M];
 
 	//заводим данные в спсиок
 	for (int i = 0; i < n; i++)
@@ -106,14 +107,24 @@ int main()
 
 	PRINT(head);
 	cout << endl;
-	
+
+	for (int i = 0; i < M; i++)
+	{
+		k[i] = rand() % 10;
+	}
 	Timer a;
-	//не доделано!
+
 	//поиск в списке
 	for (int i = 0; i < M; i++)
 	{
-		key = rand() % 10 + 1;
-		SEARCH(head, key);
+		if (SEARCH(head, k[i]))
+		{
+			cout << k[i] << " - Yes!" << endl;
+		}
+		else
+		{
+			cout <<k[i] << " - No" << endl;
+		}
 	}
 	
 	
