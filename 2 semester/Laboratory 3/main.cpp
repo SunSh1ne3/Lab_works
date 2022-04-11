@@ -106,24 +106,18 @@ double f(double x)
 	return log(x) - 1;
 }
 
-double Bisection(double a, double b)
+double Bisection(double left, double right)
 {
 	double eps = 1e-4;
 	while (1)
 	{
-		double x = (a + b) / 2;
-		if ((abs(x - a) < eps) && (abs(x - b) < eps))
-		{
+		double x = (left + right) / 2;
+		if ((abs(x - left) < eps) & (abs(x - right) < eps))
 			return x;
-		}
-		else if (f(x) * f(a) > 0)
-		{
-			a = x;
-		}
+		else if (f(x) * f(left) > 0)
+			left = x;
 		else
-		{
-			b = x;
-		}
+			right = x;
 	}
 }
 
