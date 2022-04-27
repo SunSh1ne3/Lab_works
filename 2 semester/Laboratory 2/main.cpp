@@ -101,7 +101,6 @@ void Quick_Sort(int low, int high, int* x)
 int main()
 {
 	srand(time(NULL));
-	setlocale(LC_ALL, "Rus");
 	int x[N];
 	int q[N];
 	for (int i = 0; i < N; i++)
@@ -112,11 +111,11 @@ int main()
 
 	Timer t;
 	Bubble_Sort(x, N);
-	cout << "Время выполнения Bubble_Sort: " << t.elapsed() << endl;
+	cout << "Lead time Bubble_Sort: " << t.elapsed() << endl;
 
 	t.reset();
 	Quick_Sort(0, N-1, q);
-	cout << "Время выполнения Quick_Sort: " << t.elapsed() << endl;
+	cout << "Lead time Quick_Sort: " << t.elapsed() << endl;
 
 	return 0;
 }

@@ -57,21 +57,20 @@ void Sort(char c[10000])
 
 int main()
 {
-	setlocale(LC_ALL, "Rus");
 	char c[10000];
-	cout << "Введите строку" << endl;
+	cout << "Enter the string" << endl;
 	cin.getline(c, 10000);
 	char glas[7] = "eyuioa";
 	Timer t;
 	if (Glas(c, glas))
 	{
 		Sort(c);
-		cout << "Время выполнения: " << t.elapsed() << endl;
+		cout << "Lead time: " << t.elapsed() << endl;
 		cout << "Yes!" << endl;
 	}
 	else
 	{
-		cout << "Время выполнения: " << t.elapsed() << endl;
+		cout << "Lead time: " << t.elapsed() << endl;
 		cout << "No" << endl;
 	}
 

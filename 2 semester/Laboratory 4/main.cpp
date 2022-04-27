@@ -91,14 +91,14 @@ int main()
 	srand(time(NULL));
 	setlocale(LC_ALL, "Rus");
 	int key = 0;
-	cout << "Введите количество элементов" << endl;
+	cout << "Enter the number of items: " << endl;
 	int n; cin >> n;
 	T_List* head = new T_List;
 	head->next = nullptr;
 	int* mas = new int[n];
 	int* k = new int[M];
 
-	//заводим данные в спсиок
+	//inserting data into a list
 	for (int i = 0; i < n; i++)
 	{
 		mas[i] = rand() % 10 + 1;
@@ -114,7 +114,7 @@ int main()
 	}
 	Timer a;
 
-	//поиск в списке
+	//Search in list
 	for (int i = 0; i < M; i++)
 	{
 		if (SEARCH(head, k[i]))
@@ -130,7 +130,7 @@ int main()
 	
 	cout << " Time T_List: " << a.elapsed() << endl;
 
-	cout << "Вывод массива: " << endl;
+	cout << "Array Output: " << endl;
 	for (int i = 0; i < n; i++)
 	{
 		cout << mas[i] << " ";
@@ -139,7 +139,7 @@ int main()
 
 	int L = 0;
 	a.reset();
-	//поиск в массиве
+	//Search in array
 	for (int i = 0; i < M; i++)
 	{
 		key = rand() % 10;

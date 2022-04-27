@@ -73,7 +73,7 @@ void ADD(int data, Elem*& root)
         v->right = u;
 }
  
-void PASS(Elem* v) //вывод
+void PASS(Elem* v) //output
 {
     if (v == nullptr)
         return;
@@ -97,7 +97,7 @@ void print_Tree(Elem* v, int level)
         print_Tree(v->left, level + 1);
 }
 
-Elem* SEARCH(int data, Elem* v) // поиск простой    
+Elem* SEARCH(int data, Elem* v) // easy search   
 {
     if (v == nullptr)
         return v;
@@ -109,7 +109,7 @@ Elem* SEARCH(int data, Elem* v) // поиск простой
         return SEARCH(data, v->right);
 }
 
-Elem* Search(int data, Elem* v,int number) // поиск с номером
+Elem* Search(int data, Elem* v,int number) // search with number
 {
     ofstream out("output.txt");
     if (v == nullptr)

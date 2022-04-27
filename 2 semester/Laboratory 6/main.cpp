@@ -150,19 +150,19 @@ int main()
 	PRINT(head);
 
 	cout << "What add in last position? " << n, << endl;
-	cout << endl << "=== Add_last (" << n << ") ====" << endl;
+	cout << endl << "=== Add_last ( " << n << " ) ====" << endl;
 	Add_last(head, n);
 	PRINT(head);
 
 	cout <<endl << "Enter element and key" << endl;
 	cin >> n >> key;
-	cout << endl << "=== Add_key (" << n << " -> " <<  key << ") ====" << endl;
+	cout << endl << "=== Add_key ( " << n << " -> " <<  key << " ) ====" << endl;
 	Add_key(head, n, key);
 	PRINT(head);
 
 	cout << "What delete? " << endl;
 	cin >> n;
-	cout << endl << "=== Delete ( " << n << ") ====" << endl;
+	cout << endl << "=== Delete ( " << n << " ) ====" << endl;
 	DELETE( head, n);
 	PRINT(head);
 
@@ -173,4 +173,7 @@ int main()
 	cout << endl << "=== Del_last ====" << endl;
 	Del_last(head);
 	PRINT(head);
+
+	CLEAR(head);
+	head delete;
 }

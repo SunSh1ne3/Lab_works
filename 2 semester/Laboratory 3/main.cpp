@@ -134,7 +134,7 @@ int main()
 	}
 	Quick_Sort(0, N-1, x);
 
-	cout << "Введите, что ищем: " << endl;
+	cout << "What search: " << endl;
 	cin >> k;
 
 	Timer t;
@@ -148,7 +148,7 @@ int main()
 			}
 		}
 	}
-	cout << "Время выполнения с помощью прохода по циклам: " << t.elapsed() << endl;
+	cout << "Execution time with a loop: " << t.elapsed() << endl;
 
 	t.reset();
 	
@@ -156,9 +156,9 @@ int main()
 	{
 		int j = Binarn_Search(0, N - 1, x, k);
 	}
-	cout << "Время выполнения с помощью прохода с помощью Бинарного : " << t.elapsed() << endl;
+	cout << "Execution time with a Binarn_Search : " << t.elapsed() << endl;
 	
-	cout << "Введите левую и правую границы для поиска значения ln(x) - 1 = 0 : " << endl;
+	cout << "Enter the left and right bounds to search for the value - ln(x) - 1 = 0 : " << endl;
 	cin >> a >> b;
 
 	cout << Bisection(a, b);
