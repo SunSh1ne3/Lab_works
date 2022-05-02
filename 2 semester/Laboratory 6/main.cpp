@@ -41,16 +41,16 @@ void ADD(T_List* head, int age)
 void Add_key(T_List* head, int key, int age)
 {
 	T_List* tmp = head;
-	T_List* q = new T_List;
+	T_List* p = new T_List;
 	if (search(head, key))
 	{
 		while (tmp->data != key && tmp!=nullptr)
 		{
 			tmp = tmp->next;
 		}
-		q->data = age;
-		q->next =tmp->next;
-		tmp->next = q;
+		p->data = age;
+		p->next =tmp->next;
+		tmp->next = p;
 	}
 	else
 	{
@@ -62,31 +62,31 @@ void Add_key(T_List* head, int key, int age)
 void Add_last(T_List* head, int age) 
 {
 		T_List* tmp = head;
-		T_List* q = new T_List;
-		q->data = age;
+		T_List* p = new T_List;
+		p->data = age;
 
 		while (tmp->next != nullptr) 
 		{				
 			tmp = tmp->next;
 		}
-		q->next = nullptr;
-		tmp->next = q;
+		p->next = nullptr;
+		tmp->next = p;
 }
 
 void DELETE(T_List* head, int key)
 {
-	T_List* tmp;
-	T_List* p = head;
-	while (p->next != nullptr)
+	T_List* tmp = head;
+	T_List* p;
+	while (tmp->next != nullptr)
 	{
-		if (p->next->data == key && p!= nullptr)
+		if (tmp->next->data == key && tmp!= nullptr)
 		{
-			tmp = p->next;
-			p->next = p->next->next;
-			delete tmp;
+			p = tmp->next;
+			tmp->next = tmp->next->next;
+			delete p;
 		}
 		else
-			p = p->next;
+			tmp = tmp->next;
 	}
 }
 
@@ -113,23 +113,23 @@ void Del_last(T_List* head)
 
 void CLEAR(T_List* head)
 {
-	T_List* tmp;
-	T_List* p = head->next;
-	while (p != nullptr)
+	T_List* p;
+	T_List* tmp = head->next;
+	while (tmp != nullptr)
 	{
-		tmp = p;
-		p = p->next;
-		delete tmp;
+		p = tmp;
+		tmp = tmp->next;
+		delete p;
 	}
 }
 
 void PRINT(T_List* head)
 {
-	T_List* p = head->next;
-	while (p != nullptr)
+	T_List* tmp = head->next;
+	while (tmp != nullptr)
 	{
-		cout << p->data << " ";
-		p = p->next;
+		cout << tmp->data << " ";
+		tmp = tmp->next;
 	}
 }
 
