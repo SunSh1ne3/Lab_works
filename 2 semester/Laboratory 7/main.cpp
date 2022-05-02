@@ -6,7 +6,6 @@ class Matrix
 public:
 	Matrix(int n, int m)
 	{
-		//std::cout << "Constructor" << std::endl;
 		m_n = n;
 		m_m = m;
 		m_mat = new double* [m_n];
@@ -105,7 +104,7 @@ public:
 
 	double Matrix::DET()
 	{ 
-		if (m_n != m_m)
+		if ((m_n != m_m) && (m_n!=2) && (m_n!=3))
 		{
 			cout << "This format is not supported. " << endl;
 		}
@@ -124,11 +123,6 @@ public:
 				+ m_mat[1][0] * m_mat[2][1] * m_mat[0][2] - m_mat[2][0] * m_mat[1][1] * m_mat[0][2] -
 				m_mat[2][1] * m_mat[1][2] * m_mat[0][0] - m_mat[1][0] * m_mat[0][1] * m_mat[2][2];
 			return  det;
-		}
-
-		else
-		{
-			cout << "This format is not supported. " << endl;
 		}
 	}
 
@@ -237,6 +231,7 @@ std::ostream& operator<<(std::ostream& out, const Matrix& mat)
 
 int main()
 {
+	/*
 	int n, m = 0;
 	cout << "Enter the number of rows and columns" << endl;
 	cin >> n >> m;
@@ -259,6 +254,12 @@ int main()
 	cout << " Transpositions Matrix B: " << endl << B << endl;
 	
 	cout << "A * B : " << endl << A * B << endl;
-	
+	*/
+	Matrix A(2, 2);
+	cin >> A;
+	cout << A;
+
+	cout << " Det = " << A.DET();
+	cout << " Reverse = " << A.reverse() << endl;
 	return 0;
 }
