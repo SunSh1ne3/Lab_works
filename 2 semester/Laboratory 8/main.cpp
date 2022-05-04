@@ -1,5 +1,6 @@
 #include <iostream>
 #include "inc/Matrix.hpp"
+#include <cassert>
 using namespace std;
 using namespace math;
 
@@ -18,7 +19,7 @@ int main()
 		{1}
 		} });
 
-		auto B = A * X;
+		Vec2d B = A * X;
 
 		assert(B.get(0, 0) == 3);
 		assert(B.get(1, 0) == 7);
@@ -36,7 +37,7 @@ int main()
 		{1,2},
 		{3,4}
 		} });
-		auto B = A - X;
+		Mat22d B = A - X;
 
 		assert(B.get(0, 0) == 0);
 		assert(B.get(0, 1) == -1);
@@ -57,7 +58,7 @@ int main()
 		{3,4}
 		} });
 
-		auto B = A + X;
+		Mat22d B = A + X;
 
 		assert(B.get(0, 0) == 2);
 		assert(B.get(0, 1) == 3);
@@ -96,8 +97,8 @@ int main()
 		{5,-2,-3},
 		} });
 
-		auto B = X.reverse();
-		auto C = A.reverse();
+		Mat22d B = X.reverse();
+		Mat33d C = A.reverse();
 		assert(B.get(0, 0) == -2);
 		assert(B.get(0, 1) == 1);
 		assert(B.get(1, 0) == 1.5);
@@ -114,15 +115,14 @@ int main()
 		assert(C.get(2, 2) == 24);
 	}
 	cout << "Done!" << endl;
-
-	cout << "=== Test 6 ( Transpposition ) === " << endl;
+	
+	cout << "=== Test 6 ( Transposition ) === " << endl;
 	{
 		Matrix<int,2,3> X({ {
 		{1,2,3},
 		{4,5,6}
 		} });
-		auto B = X.transposition();
-		cout << B;
+		Matrix<int,3,2> B = X.transposition();
 		assert(B.get(0, 0) == 1);
 		assert(B.get(1, 0) == 2);
 		assert(B.get(2, 0) == 3);
@@ -131,6 +131,7 @@ int main()
 		assert(B.get(2, 1) == 6);
 	}
 	cout << "Done!" << endl;
+
 
 	return 0;
 }

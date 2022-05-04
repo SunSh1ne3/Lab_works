@@ -173,17 +173,19 @@ namespace math
 			cout << "Destructor " << endl;
 #endif 
 		}
-
-		T Matrix::DET()
+		
+		T DET()
 		{
-	
+#ifdef MY_DEBUG
+			std::cout << "Det" << std::endl;
+#endif
 			if ((m_n != m_m) || ((m_n != 2) && (m_m != 3)))
 				cout << "This format is not supported. " << endl;
 			if (m_n == 2)
 			{
 				return m_mat[0][0] * m_mat[1][1] - m_mat[0][1] * m_mat[1][0];
 			}
-			if (m_n == 3)
+			else if (m_n == 3)
 			{
 				return m_mat[0][0] * m_mat[1][1] * m_mat[2][2]
 					+ m_mat[0][1] * m_mat[1][2] * m_mat[2][0]
@@ -197,6 +199,9 @@ namespace math
 
 		Matrix<T, N, M> reverse()
 		{
+#ifdef MY_DEBUG
+			std::cout << "reverse" << std::endl;
+#endif
 			Matrix<double, N, M> tmp;
 			if ((N != M) || ((N != 2) && (N != 3)))
 			{
@@ -205,53 +210,51 @@ namespace math
 			}
 
 			double Det = DET();
+			if (Det == 0)
+			{
+				cout << "DET = 0. Inverse Matrix does not exist. " << endl;
+				return tmp;
+			}
 			if ((m_n == m_m && m_n == 2) || (m_n == m_m && m_n == 3))
 			{
-				if (Det == 0)
+				if (N == 2)
 				{
-					cout << "DET = 0. Inverse Matrix does not exist. " << endl;
+					tmp.set(0, 0, m_mat[1][1] / Det);
+					tmp.set(0, 1, -m_mat[0][1] / Det);
+					tmp.set(1, 0, -m_mat[1][0] / Det);
+					tmp.set(1, 1, m_mat[1][1] / Det);
 					return tmp;
 				}
-				else
+				else if (N == 3)
 				{
-					if (N == 2)
-					{
-						tmp.set(0, 0, m_mat[1][1] / Det);
-						tmp.set(0, 1, -m_mat[0][1] / Det);
-						tmp.set(1, 0, -m_mat[1][0] / Det);
-						tmp.set(1, 1, m_mat[1][1] / Det);
-						return tmp;
-					}
-					else if (N == 3)
-					{
-						tmp.set(0, 0, ((m_mat[1][1] * m_mat[2][2] - m_mat[2][1] * m_mat[1][2]) / Det));
-						tmp.set(1, 0, (-(m_mat[1][0] * m_mat[2][2] - m_mat[2][0] * m_mat[1][2]) / Det));
-						tmp.set(2, 0, ((m_mat[1][0] * m_mat[2][1] - m_mat[2][0] * m_mat[1][1]) / Det));
-						tmp.set(0, 1, (-(m_mat[0][1] * m_mat[2][2] - m_mat[2][1] * m_mat[0][2]) / Det));
-						tmp.set(1, 1, ((m_mat[0][0] * m_mat[2][2] - m_mat[2][0] * m_mat[0][2]) / Det));
-						tmp.set(2, 1, (-(m_mat[0][0] * m_mat[2][1] - m_mat[2][0] * m_mat[0][1]) / Det));
-						tmp.set(0, 2, ((m_mat[0][1] * m_mat[1][2] - m_mat[1][1] * m_mat[0][2]) / Det));
-						tmp.set(1, 2, (-(m_mat[0][0] * m_mat[1][2] - m_mat[1][0] * m_mat[0][2]) / Det));
-						tmp.set(2, 2, ((m_mat[0][0] * m_mat[1][1] - m_mat[1][0] * m_mat[0][1]) / Det));
-						return tmp;
-					}
+					tmp.set(0, 0, ((m_mat[1][1] * m_mat[2][2] - m_mat[2][1] * m_mat[1][2]) / Det));
+					tmp.set(1, 0, (-(m_mat[1][0] * m_mat[2][2] - m_mat[2][0] * m_mat[1][2]) / Det));
+					tmp.set(2, 0, ((m_mat[1][0] * m_mat[2][1] - m_mat[2][0] * m_mat[1][1]) / Det));
+					tmp.set(0, 1, (-(m_mat[0][1] * m_mat[2][2] - m_mat[2][1] * m_mat[0][2]) / Det));
+					tmp.set(1, 1, ((m_mat[0][0] * m_mat[2][2] - m_mat[2][0] * m_mat[0][2]) / Det));
+					tmp.set(2, 1, (-(m_mat[0][0] * m_mat[2][1] - m_mat[2][0] * m_mat[0][1]) / Det));
+					tmp.set(0, 2, ((m_mat[0][1] * m_mat[1][2] - m_mat[1][1] * m_mat[0][2]) / Det));
+					tmp.set(1, 2, (-(m_mat[0][0] * m_mat[1][2] - m_mat[1][0] * m_mat[0][2]) / Det));
+					tmp.set(2, 2, ((m_mat[0][0] * m_mat[1][1] - m_mat[1][0] * m_mat[0][1]) / Det));
+					return tmp;
 				}
+			
 			}
 		}
 
-
-		Matrix<T, N, M> transposition()
+		template<typename T, int N, int M>
+		Matrix<T, N, M> Matrix::transposition()
 		{
 #ifdef MY_DEBUG
 			std::cout << "transposition" << std::endl;
 #endif
 			Matrix<T, M, N> tmp;
 
-			for (int i = 0; i < m_m; i++)
+			for (int i = 0; i < M; i++)
 			{
-				for (int j = 0; j < m_n; j++)
+				for (int j = 0; j < N; j++)
 				{
-					tmp.set(i, j, m_mat[i][j]);
+					tmp.set(i, j, m_mat[j][i]);
 				}
 			}
 			return tmp;
