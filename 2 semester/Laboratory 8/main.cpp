@@ -25,7 +25,7 @@ int main()
 	}
 	cout << "Done!" << endl;
 
-	cout << "=== Test 2(-) === " << endl;
+	cout << "=== Test 2 ( - ) === " << endl;
 	{
 		Mat22d A({ {
 		{1,1},
@@ -117,21 +117,18 @@ int main()
 
 	cout << "=== Test 6 ( Transpposition ) === " << endl;
 	{
-		Mat22d X({ {
-		{1,2},
-		{3,4}
+		Matrix<int,2,3> X({ {
+		{1,2,3},
+		{4,5,6}
 		} });
 		auto B = X.transposition();
-		auto C = X.transposition().transposition();
+		cout << B;
 		assert(B.get(0, 0) == 1);
-		assert(B.get(0, 1) == 3);
 		assert(B.get(1, 0) == 2);
-		assert(B.get(1, 1) == 4);
-
-		assert(C.get(0, 0) == 1);
-		assert(C.get(0, 1) == 2);
-		assert(C.get(1, 0) == 3);
-		assert(C.get(1, 1) == 4);
+		assert(B.get(2, 0) == 3);
+		assert(B.get(0, 1) == 4);
+		assert(B.get(1, 1) == 5);
+		assert(B.get(2, 1) == 6);
 	}
 	cout << "Done!" << endl;
 

@@ -174,22 +174,26 @@ namespace math
 #endif 
 		}
 
-		T DET()
+		T Matrix::DET()
 		{
-			T det = 0;
-			if ((N != M) || ((N != 2) && (N != 3)))
+	
+			if ((m_n != m_m) || ((m_n != 2) && (m_m != 3)))
 				cout << "This format is not supported. " << endl;
-			if (N == 2)
-				det = m_mat[0][0] * m_mat[1][1] - m_mat[0][1] * m_mat[1][0];
-			if (N == 3)
-				det = m_mat[0][0] * m_mat[1][1] * m_mat[2][2]
-				+ m_mat[0][1] * m_mat[1][2] * m_mat[2][0]
-				+ m_mat[1][0] * m_mat[2][1] * m_mat[0][2]
-				- m_mat[0][2] * m_mat[1][1] * m_mat[2][0]
-				- m_mat[0][0] * m_mat[1][2] * m_mat[2][1]
-				- m_mat[0][1] * m_mat[1][0] * m_mat[2][2];
-			return det;
+			if (m_n == 2)
+			{
+				return m_mat[0][0] * m_mat[1][1] - m_mat[0][1] * m_mat[1][0];
+			}
+			if (m_n == 3)
+			{
+				return m_mat[0][0] * m_mat[1][1] * m_mat[2][2]
+					+ m_mat[0][1] * m_mat[1][2] * m_mat[2][0]
+					+ m_mat[1][0] * m_mat[2][1] * m_mat[0][2]
+					- m_mat[0][2] * m_mat[1][1] * m_mat[2][0]
+					- m_mat[0][0] * m_mat[1][2] * m_mat[2][1]
+					- m_mat[0][1] * m_mat[1][0] * m_mat[2][2];
+			}
 		}
+
 
 		Matrix<T, N, M> reverse()
 		{
@@ -235,14 +239,19 @@ namespace math
 			}
 		}
 
+
 		Matrix<T, N, M> transposition()
 		{
-			Matrix<T, N, M> tmp;
-			for (int i = 0; i < M; i++)
+#ifdef MY_DEBUG
+			std::cout << "transposition" << std::endl;
+#endif
+			Matrix<T, M, N> tmp;
+
+			for (int i = 0; i < m_m; i++)
 			{
-				for (int j = 0; j < N; j++)
+				for (int j = 0; j < m_n; j++)
 				{
-					tmp.set(i, j, m_mat[j][i]);
+					tmp.set(i, j, m_mat[i][j]);
 				}
 			}
 			return tmp;

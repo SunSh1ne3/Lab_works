@@ -196,6 +196,7 @@ public:
 				m_mat[i][j] = tmp.m_mat[i][j];
 			}
 		}
+		return m_mat;
 	}
 
 	friend istream& operator>>(istream& in, Matrix& mat);
@@ -231,7 +232,7 @@ std::ostream& operator<<(std::ostream& out, const Matrix& mat)
 
 int main()
 {
-	/*
+	
 	int n, m = 0;
 	cout << "Enter the number of rows and columns" << endl;
 	cin >> n >> m;
@@ -254,12 +255,6 @@ int main()
 	cout << " Transpositions Matrix B: " << endl << B << endl;
 	
 	cout << "A * B : " << endl << A * B << endl;
-	*/
-	Matrix A(2, 2);
-	cin >> A;
-	cout << A;
 
-	cout << " Det = " << A.DET();
-	cout << " Reverse = " << A.reverse() << endl;
 	return 0;
 }
