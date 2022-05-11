@@ -32,8 +32,6 @@ namespace image
         void Read(const string& filename);
         
         void Save(const string& filename);
-       
-        void Fill(Pixel pixel);
       
         void Filter(unsigned char m_b, unsigned char m_g, unsigned char m_r);
         

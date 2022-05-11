@@ -168,26 +168,19 @@ namespace image
                     }
             }
         }
-        void BMP::Fill(Pixel pixel)
-        {
-            for (int i = 0; i < m_height; i++)
-                for (int j = 0; j < m_width; j++)
-                    m_pixels[i][j] = pixel;
-        }
 
-
-        void BMP::Filter(unsigned char m_b, unsigned char m_g, unsigned char m_r)
+        void BMP::Filter(unsigned char m_r, unsigned char m_g, unsigned char m_b)
         {
             for (int i = 0; i < m_height; i++)
             {
                 for (int j = 0; j < m_width; j++)
                 {
-                    if ((m_pixels[i][j].b + m_b < 256) || (m_pixels[i][j].b + m_b >= 0))
-                        m_pixels[i][j].b += m_b;
-                    if ((m_pixels[i][j].b + m_g < 256) || (m_pixels[i][j].b + m_g >= 0))
-                        m_pixels[i][j].g += m_g;
                     if ((m_pixels[i][j].b + m_r < 256) || (m_pixels[i][j].b + m_r >= 0))
                         m_pixels[i][j].r += m_r;
+                    if ((m_pixels[i][j].b + m_g < 256) || (m_pixels[i][j].b + m_g >= 0))
+                        m_pixels[i][j].g += m_g;
+                    if ((m_pixels[i][j].b + m_b < 256) || (m_pixels[i][j].b + m_b >= 0))
+                        m_pixels[i][j].b += m_b;
                 }
             }
         }
