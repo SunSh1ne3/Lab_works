@@ -6,10 +6,12 @@ int main()
 {
     try
     {
-        BMP test_bmp(200, 100);
-        test_bmp.Fill({ 0,255,0 });
-        test_bmp.Rotate(acos(-1) / 2);
-        test_bmp.Save("test.bmp");
+        BMP test;
+        test.Read("in.bmp");
+        test.Rotate(45);
+        test.Fix();
+        test.Save("test.bmp");
+
     }
     catch (const std::exception& e)
     {

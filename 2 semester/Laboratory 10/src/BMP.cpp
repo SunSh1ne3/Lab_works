@@ -39,7 +39,7 @@ namespace image
             }
         }
 
-        //доделать с координатами
+
         BMP::BMP(const BMP& bmp)
         {
             if (m_pixels != nullptr)
@@ -66,10 +66,9 @@ namespace image
             
             for (int i = 0; i < m_height; i++)
                 for (int j = 0; j < m_width; j++)
-                    m_coordinates[i][j].set(1,0, bmp.m_coordinates[i][j]);
+                    m_coordinates[i][j]= bmp.m_coordinates[i][j];
         }
 
-        //доделать с координатами
         BMP& BMP::operator=(const BMP& bmp)
         {
             if (m_pixels != nullptr)
@@ -85,10 +84,18 @@ namespace image
             m_pixels = new Pixel * [m_height];
             for (int i = 0; i < m_height; i++)
                 m_pixels[i] = new Pixel[m_width];
+            
+            m_coordinates = new Vec2d * [m_height];
+            for (int i = 0; i < m_height; i++)
+                m_coordinates[i] = new Vec2d[m_width];
 
             for (int i = 0; i < m_height; i++)
                 for (int j = 0; j < m_width; j++)
                     m_pixels[i][j] = bmp.m_pixels[i][j];
+            
+            for (int i = 0; i < m_height; i++)
+                for (int j = 0; j < m_width; j++)
+                    m_coordinates[i][j] = bmp.m_coordinates[i][j];
 
             return *this;
         }
@@ -129,6 +136,10 @@ namespace image
             m_pixels = new Pixel * [bmpInfo.Height];
             for (int i = 0; i < bmpInfo.Height; i++)
                 m_pixels[i] = new Pixel[bmpInfo.Width];
+            
+            m_coordinates = new Vec2d * [m_width];
+                for(int i = 0; i < m_height; i++)
+                    m_coordinates[i] = new Vec2d[m_width];
 
             for (int i = 0; i < bmpInfo.Height; i++)
             {
@@ -142,6 +153,12 @@ namespace image
                         in.read(&c, 1);
                     }
             }
+            for (int i = 0; i < m_height; i++)
+                for (int j = 0; j < m_width; j++)
+                {
+                    m_coordinates[i][j].set(0, 0, j);
+                    m_coordinates[i][j].set(1, 0, i);
+                }
         }
 
         void BMP::Fill(Pixel pixel)
@@ -151,19 +168,18 @@ namespace image
                     m_pixels[i][j] = pixel;
         }
 
-
-        void BMP::Filter(unsigned char m_b, unsigned char m_g, unsigned char m_r)
+        void BMP::Filter(Pixel pixel)
         {
             for (int i = 0; i < m_height; i++)
             {
                 for (int j = 0; j < m_width; j++)
                 {
-                    if ((m_pixels[i][j].b + m_b < 256) || (m_pixels[i][j].b + m_b >= 0))
-                        m_pixels[i][j].b += m_b;
-                    if ((m_pixels[i][j].b + m_g < 256) || (m_pixels[i][j].b + m_g >= 0))
-                        m_pixels[i][j].g += m_g;
-                    if ((m_pixels[i][j].b + m_r < 256) || (m_pixels[i][j].b + m_r >= 0))
-                        m_pixels[i][j].r += m_r;
+                    if ((m_pixels[i][j].r + pixel.r < 256) || (m_pixels[i][j].r + pixel.r >= 0))
+                        m_pixels[i][j].r += pixel.r;
+                    if ((m_pixels[i][j].g + pixel.g < 256) || (m_pixels[i][j].g + pixel.g >= 0))
+                        m_pixels[i][j].g += pixel.g;
+                    if ((m_pixels[i][j].b + pixel.b < 256) || (m_pixels[i][j].b + pixel.b >= 0))
+                        m_pixels[i][j].b += pixel.b;
                 }
             }
         }
@@ -221,11 +237,12 @@ namespace image
 
         void BMP::Rotate(double angle)
         {
+            angle *= acos(-1) / 180;
             // 1.   
             Vec2d T({ {
-                {(double)(m_width / 2)},
-                {(double)(m_height / 2)}
-            } });
+             {(double)(m_width / 2)},
+             {(double)(m_height / 2)}
+         } });
 
             for (int i = 0; i < m_height; i++)
                 for (int j = 0; j < m_width; j++)
@@ -241,7 +258,6 @@ namespace image
                 for (int j = 0; j < m_width; j++)
                 {
                     m_coordinates[i][j] = R * m_coordinates[i][j];
-                    //std::cout << m_coordinates[i][j] << std::endl;
                 }
 
             // 3.      
@@ -262,7 +278,6 @@ namespace image
                         minY = m_coordinates[i][j].get(1, 0);
                 }
 
-            //       -  
             maxX++;
             minX--;
             maxY++;
@@ -270,8 +285,7 @@ namespace image
 
             int width = maxX - minX;
             int height = maxY - minY;
-
-            //     
+  
             Vec2d shift({ {
                 {(double)(width / 2)},
                 {(double)(height / 2)}
@@ -281,7 +295,6 @@ namespace image
                 for (int j = 0; j < m_width; j++)
                     m_coordinates[i][j] = m_coordinates[i][j] + shift;
 
-            //   
             Pixel** new_pixels = new Pixel * [height];
             for (int i = 0; i < height; i++)
                 new_pixels[i] = new Pixel[width];
@@ -300,8 +313,7 @@ namespace image
                     new_coordinates[i][j].set(0, 0, j);
                     new_coordinates[i][j].set(0, 0, i);
                 }
-
-            //  
+  
             for (int i = 0; i < m_height; i++)
                 for (int j = 0; j < m_width; j++)
                 {
@@ -309,8 +321,7 @@ namespace image
                     int y = (int)(m_coordinates[i][j].get(1, 0));
                     new_pixels[y][x] = m_pixels[i][j];
                 }
-
-            //   
+  
             for (int i = 0; i < m_height; i++)
                 delete[] m_pixels[i];
             delete[] m_pixels;
@@ -326,8 +337,230 @@ namespace image
             m_height = height;
         }
 
-       
-        //подумай
-        Pixel** BMP::getPixel() { return m_pixels; }
+
+        bool BMP::ItsBlack(int x, int y)
+        {
+            if ((m_pixels[x][y].r == 0) && (m_pixels[x][y].g == 0) && (m_pixels[x][y].b == 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        void BMP::Fix()
+        {
+            for (int i = 0; i < m_height - 1; i++)
+                for (int j = 0; j < m_width - 1; j++)
+                {
+                    int summ_r = 0;
+                    int summ_g = 0;
+                    int summ_b = 0;
+                    int kol = 0;
+
+                    if (ItsBlack(i, j))
+                    {
+                        if ((i - 1 >= 0) && (j - 1 >= 0))
+                        {
+                            summ_r += (int)m_pixels[i - 1][j - 1].r;
+                            summ_g += (int)m_pixels[i - 1][j - 1].g;
+                            summ_b += (int)m_pixels[i - 1][j - 1].b;
+                            kol += 1;
+                        }
+                        if (i - 1 >= 0)
+                        {
+                            summ_r += (int)m_pixels[i - 1][j].r;
+                            summ_g += (int)m_pixels[i - 1][j].g;
+                            summ_b += (int)m_pixels[i - 1][j].b;
+                            kol += 1;
+                        }
+                        if ((i - 1 >= 0) && (j + 1 <= m_width))
+                        {
+                            summ_r += (int)m_pixels[i - 1][j + 1].r;
+                            summ_g += (int)m_pixels[i - 1][j + 1].g;
+                            summ_b += (int)m_pixels[i - 1][j + 1].b;
+                            kol += 1;
+                        }
+                        if (j + 1 <= m_width)
+                        {
+                            summ_r += (int)m_pixels[i][j + 1].r;
+                            summ_g += (int)m_pixels[i][j + 1].g;
+                            summ_b += (int)m_pixels[i][j + 1].b;
+                            kol += 1;
+                        }
+                        if ((j + 1 <= m_width) && (i + 1 <= m_height))
+                        {
+                            summ_r += (int)m_pixels[i + 1][j + 1].r;
+                            summ_g += (int)m_pixels[i + 1][j + 1].g;
+                            summ_b += (int)m_pixels[i + 1][j + 1].b;
+                            kol += 1;
+                        }
+                        if (i + 1 <= m_height)
+                        {
+                            summ_r += (int)m_pixels[i + 1][j].r;
+                            summ_g += (int)m_pixels[i + 1][j].g;
+                            summ_b += (int)m_pixels[i + 1][j].b;
+                            kol += 1;
+                        }
+                        if ((j - 1 >= 0) && (i + 1 <= m_height))
+                        {
+                            summ_r += (int)m_pixels[i + 1][j - 1].r;
+                            summ_g += (int)m_pixels[i + 1][j - 1].g;
+                            summ_b += (int)m_pixels[i + 1][j - 1].b;
+                            kol += 1;
+                        }
+                        if (j - 1 >= 0)
+                        {
+                            summ_r += (int)m_pixels[i][j - 1].r;
+                            summ_g += (int)m_pixels[i][j - 1].g;
+                            summ_b += (int)m_pixels[i][j - 1].b;
+                            kol += 1;
+                        }
+
+                        m_pixels[i][j].r = unsigned char(summ_r / kol);
+                        m_pixels[i][j].g = unsigned char(summ_g / kol);
+                        m_pixels[i][j].b = unsigned char(summ_b / kol);
+                    }
+                }
+        }
+        /*void BMP::Fixs()
+        {
+            Pixel** pixel_z = new Pixel * [m_height];
+            for (int i = 0; i < m_height; i++)
+                pixel_z[i] = new Pixel[m_width];
+            Pixel** pixel_n = new Pixel * [m_height];
+            for (int i = 0; i < m_height; i++)
+                pixel_n[i] = new Pixel[m_width];
+
+            for (int i = 0; i < m_height - 1; i++)
+                for (int j = 0; j < m_width - 1; j++)
+                {
+                    int k_z = 0;
+                    int k_n = 0;
+
+                    if (ItsBlack(i, j))
+                    {
+                        if ((i - 1 >= 0) && (j - 1 >= 0))
+                        {
+                            if (ItsBlack(i - 1, j - 1))
+                            {
+                                **pixel_z = m_pixels[i - 1][j - 1];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i - 1, j - 1))
+                            {
+                                **pixel_n = m_pixels[i - 1][j - 1];
+                                k_n += 1;
+                            }
+                        }
+
+                        if (i - 1 >= 0)
+                        {
+                            if (ItsBlack(i - 1, j))
+                            {
+                                **pixel_z = m_pixels[i - 1][j];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i - 1, j))
+                            {
+                                **pixel_n = m_pixels[i - 1][j];
+                                k_n += 1;
+                            }
+                        }
+
+                        if ((i - 1 >= 0) && (j + 1 <= m_width))
+                        {
+                            if (ItsBlack(i - 1, j + 1))
+                            {
+                                **pixel_z = m_pixels[i - 1][j + 1];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i - 1, j + 1))
+                            {
+                                **pixel_n = m_pixels[i - 1][j + 1];
+                                k_n += 1;
+                            }
+                        }
+
+                        if (j + 1 <= m_width)
+                        {
+                            if (ItsBlack(i, j + 1))
+                            {
+                                **pixel_z = m_pixels[i][j + 1];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i, j + 1))
+                            {
+                                **pixel_n = m_pixels[i][j + 1];
+                                k_n += 1;
+                            }
+                        }
+
+                        if ((j + 1 <= m_width) && (i + 1 <= m_height))
+                        {
+                            if (ItsBlack(i + 1, j = +1))
+                            {
+                                **pixel_z = m_pixels[i + 1][j + 1];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i + 1, j = +1))
+                            {
+                                **pixel_n = m_pixels[i + 1][j + 1];
+                                k_n += 1;
+                            }
+                        }
+
+                        if (i + 1 <= m_height)
+                        {
+                            if (ItsBlack(i + 1, j))
+                            {
+                                **pixel_z = m_pixels[i + 1][j];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i + 1, j))
+                            {
+                                **pixel_n = m_pixels[i + 1][j];
+                                k_n += 1;
+                            }
+                        }
+
+                        if ((j - 1 >= 0) && (i + 1 <= m_height))
+                        {
+                            if (ItsBlack(i + 1, j - 1))
+                            {
+                                **pixel_z = m_pixels[i + 1][j - 1];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i + 1, j - 1))
+                            {
+                                **pixel_n = m_pixels[i + 1][j - 1];
+                                k_n += 1;
+                            }
+                        }
+
+                        if (i - 1 >= 0)
+                        {
+                            if (ItsBlack(i, j - 1))
+                            {
+                                **pixel_z = m_pixels[i - 1][j];
+                                k_z += 1;
+                            }
+                            else if (!ItsBlack(i, j - 1))
+                            {
+                                **pixel_n = m_pixels[i - 1][j];
+                                k_n += 1;
+                            }
+                        }
+
+                        if (k_z >= k_n)
+                        {
+                            m_pixels = pixel_z;
+                        }
+                        else
+                        {
+                            m_pixels = pixel_n;
+                        }
+                    }
+                }
+        }*/
 
 }

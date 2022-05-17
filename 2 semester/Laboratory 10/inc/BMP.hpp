@@ -31,13 +31,13 @@ namespace image
         void Read(const string& filename);
 
         void Fill(Pixel pixel);
-        void Filter(unsigned char m_b, unsigned char m_g, unsigned char m_r);
+        void Filter(Pixel pixel);
 
         void Save(const string& filename);
         void Rotate(double angle);
-
-        //подумай
-        Pixel** getPixel();
+        bool ItsBlack(int x, int y);
+        void Fix();
+       // void Fixs();
     private:
         int m_width, m_height;
         Pixel** m_pixels = nullptr;
