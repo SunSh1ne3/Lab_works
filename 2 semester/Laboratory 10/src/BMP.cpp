@@ -137,7 +137,7 @@ namespace image
             for (int i = 0; i < bmpInfo.Height; i++)
                 m_pixels[i] = new Pixel[bmpInfo.Width];
             
-            m_coordinates = new Vec2d * [m_width];
+            m_coordinates = new Vec2d * [m_height];
                 for(int i = 0; i < m_height; i++)
                     m_coordinates[i] = new Vec2d[m_width];
 
@@ -234,6 +234,7 @@ namespace image
                     }
             }
         }
+
 
         void BMP::Rotate(double angle)
         {
@@ -422,7 +423,8 @@ namespace image
                     }
                 }
         }
-        /*void BMP::Fixs()
+        /*
+        void BMP::Fixs()
         {
             Pixel** pixel_z = new Pixel * [m_height];
             for (int i = 0; i < m_height; i++)

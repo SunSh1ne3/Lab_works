@@ -8,7 +8,7 @@ int main()
     {
         BMP test;
         test.Read("in.bmp");
-        test.Rotate(45);
+        test.Rotate(360*658*48*52+1);
         test.Fix();
         test.Save("test.bmp");
 
