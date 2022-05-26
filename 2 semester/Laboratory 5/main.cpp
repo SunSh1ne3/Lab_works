@@ -214,7 +214,8 @@ int main()
             ADD(b, root);
             cout << "+ " << b << endl;
             cout << " Tree: " << endl;
-            print_Tree(root, 1);
+            PASS(root);
+            //print_Tree(root, 1);
             cout << endl;
         }
         else if (a == '?')
@@ -226,7 +227,8 @@ int main()
             DELETE(b, root);
             cout << "- " << b << endl;
             cout << " Tree: " << endl;
-            print_Tree(root, 1);
+            PASS(root);
+            //print_Tree(root, 1);
             cout << endl;
         }
         else if (a == 'E')
@@ -235,7 +237,8 @@ int main()
         }
     }
     cout << "======" << endl;
-    print_Tree(root, 0);
+    PASS(root);
+   // print_Tree(root, 0);
     CLEAR(root);
 	return 0;
 }
