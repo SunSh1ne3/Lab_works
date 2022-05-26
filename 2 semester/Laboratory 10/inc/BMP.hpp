@@ -37,7 +37,6 @@ namespace image
         void Rotate(double angle);
         bool ItsBlack(int x, int y);
         void Fix();
-       // void Fixs();
     private:
         int m_width, m_height;
         Pixel** m_pixels = nullptr;
