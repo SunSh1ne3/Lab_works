@@ -126,7 +126,7 @@ public:
 		}
 	}
 
-	Matrix Matrix::reverse()
+	Matrix reverse()
 	{
 		int Det = DET();
 		Matrix tmp(m_n, m_m);
@@ -165,7 +165,7 @@ public:
 			std::cout << "This format is not supported. " << std::endl;
 	}
 
-	Matrix Matrix::transposition()
+	void transposition()
 	{
 		swap(m_m, m_n);
 		Matrix tmp(m_n, m_m);
@@ -196,7 +196,6 @@ public:
 				m_mat[i][j] = tmp.m_mat[i][j];
 			}
 		}
-		return m_mat;
 	}
 
 	friend istream& operator>>(istream& in, Matrix& mat);
