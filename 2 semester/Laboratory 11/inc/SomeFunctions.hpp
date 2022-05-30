@@ -15,18 +15,21 @@
             shift = new JAVA(language);
             shift->someCodeRelatedThing();
             return shift;
+            break;
         }
         case C_plus_plus:
         {
             shift = new C_PLUS_PLUS(language);
             shift->someCodeRelatedThing();
             return shift;
+            break;
         }
         case PhP:
         {
             shift = new PHP(language);
             shift->someCodeRelatedThing();
             return shift;
+            break;
         }
         }
     }

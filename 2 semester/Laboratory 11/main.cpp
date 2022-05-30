@@ -15,12 +15,16 @@ int main()
 
     cout << "  ====   php   ====  " << endl;
 
-    CodeGenerator* code_1 = generateCode(PhP);
-    cout << code_1->someCodeRelatedThing() << endl;
+    CodeGenerator* code1 = generateCode(PhP);
+    cout << code1->someCodeRelatedThing() << endl;
 
     cout << "  ====   c_plus_plus   ====  " << endl;
 
-    CodeGenerator* code_2 = generateCode(C_plus_plus);
-    cout << code_2->someCodeRelatedThing() << endl;
+    CodeGenerator* code2 = generateCode(C_plus_plus);
+    cout << code2->someCodeRelatedThing() << endl;
+
+    delete code;
+    delete code1;
+    delete code2;
 	return 0;
 }

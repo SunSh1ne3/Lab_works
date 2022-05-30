@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Lang p_h_p;
+
     class PHP :public CodeGenerator
     {
     public:
