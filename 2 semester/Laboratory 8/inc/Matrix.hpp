@@ -242,7 +242,7 @@ namespace math
 			}
 		}
 
-		template<typename T, int N, int M>
+
 		Matrix<T, N, M> Matrix::transposition()
 		{
 #ifdef MY_DEBUG
@@ -265,7 +265,7 @@ namespace math
 
 		template<typename T, int N, int M>
 		friend ostream& operator<<(ostream& out, const Matrix<T, N, M>& mat);
-	private:
+	public:
 		int m_n, m_m;
 		T m_mat[N][M];
 	};
