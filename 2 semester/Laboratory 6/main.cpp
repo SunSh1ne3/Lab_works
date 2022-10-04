@@ -175,5 +175,5 @@ int main()
 	PRINT(head);
 
 	CLEAR(head);
-	head delete;
+	delete head;
 }
