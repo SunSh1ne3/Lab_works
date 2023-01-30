@@ -15,7 +15,7 @@ void write(int mas[], int n)
 }
 void write_out(int mas[], int n)
 {
-	out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/mas.txt");
+	out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/mas.txt");
 
 	cout << "Mas: \n";
 	for (int i = 0; i < n; i++)
@@ -294,121 +294,122 @@ void Quick_Sort(int low, int high, int* x)
 	Quick_Sort(r, high, x);
 }
 
-//		not work		//
-void CreateRuns(int S, int n)
+void PolyPhaseMerge_Sort(int mas[])
 {
-	int* mas = new int[S];
-	int k = 0, s = 0;
-	char CurFile = 'A';
-	string time_str = "";
+	ifstream in, inA, inB;
+	ofstream out, outA, outB;
 
-	ifstream in; in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/mas.txt");
-	ofstream A_out; A_out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/A.txt");
-	ofstream B_out; B_out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/B.txt");
+	int size=0,a, b, countA, countB, count;
+	bool flag = true, Afull, Bfull;
 
-	if (in.is_open())
-		while (!in.eof())
-		{
-			if (s < n / S)
-			{
-				k = 0;
-				while (k < S)
-				{
-					in >> time_str;
-					cout << time_str << endl;
-					mas[k] = stoi(time_str);
-					k++;
-					time_str = "";
-				}
-				Insertion_sort(mas, S);
-				if (CurFile == 'A')
-				{
-					if (A_out.is_open())
-					{
-						for (int i = 0; i < S; i++)
-							A_out << mas[i] << " ";
-						std::cout << "\n A \n";
-					}
-						CurFile = 'B';
-					}
-				else if (CurFile == 'B')
-				{
-					if (B_out.is_open())
-					{
-						for (int i = 0; i < S; i++)
-							B_out << mas[i] << " ";
-						std::cout << "\n B \n";
-					}
-					CurFile = 'A';
-				}
-				s++;
-			}
-			else
-				break;
-		}
-
-	delete[] mas;
-	in.close();
-	//A_out.close();
-	B_out.close();
-}
-ifstream Imetod(char s)
-{
-	ifstream A_in;A_in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/A.txt", ios::app);
-	if (s == 'A')
-		return A_in;
-	//A_in.close();
-}
-void PolyPhaseMerge(int S)
-{
-	int Size = S, s=0;
-	char Input1 = 'A', Input2 = 'B', CurrentOutput = 'C';
-	string str="";
-	//ifstream A_in; A_in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/A.txt");
-	ifstream B_in; B_in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/B.txt");
-	ifstream C_in; C_in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/C.txt");
-	ifstream D_in; D_in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/D.txt");
-
-	//ofstream A_out; A_out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/A.txt");
-	//ofstream B_out; B_out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/B.txt");
-	ofstream C_out; C_out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/C.txt");
-	ofstream D_out; D_out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort(4-12)/D.txt");
-	/*while(Imetod(Input1))
-	{ 
-		while (!Imetod(Input1).eof())
-		{
-			Imetod(Input1) >> str;
-			cout << "srt " << str << endl;
-			str = "";
-		}
-		
-	}*/
-	while (!Imetod(Input1).eof())
+	in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/mas.txt");
+	out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/out.txt");
+	while (in >> a)
 	{
-		//Imetod(Input1) >> str;
-		//cout << "str " << str << endl;
-		//str = "";
-		s = 0;
-		if (s < 5)
-		{
-
-			Imetod(Input1) >> str;
-			cout << stoi(str) << endl;
-			str = "";
-			
-			s++;
-		}
-		else
-			break;
+		out << a << " ";
+		size++;
 	}
+	in.close();
+	out.close();
 
-	
+	for (int partSize = 1; partSize < size; partSize *= 2)
+	{
+		in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/out.txt");
+		outA.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/A.txt");
+		outB.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/B.txt");
+		count = 0;
+		while (in >> a)
+		{
+			count++;
+			if (flag) 
+				outA << a << " ";
+			else
+				outB << a << " ";
+			if (count == partSize)
+			{
+				count = 0;
+				flag = !flag;
+			}
+		}
+		in.close();
+		outA.close();
+		outB.close();
+
+		inA.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/A.txt");
+		inB.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/B.txt");
+		out.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/out.txt");
+
+		if (inA >> a)
+			Afull = false;
+		else
+			Afull = true;
+
+		if (inB >> b)
+			Bfull = false;
+		else
+			Bfull = true;
+
+		for (int i = 0; i < size; i += 2 * partSize)
+		{
+			countA = 0; countB = 0;
+			while (countA < partSize && !Afull && countB < partSize && !Bfull)
+				if (a < b)
+				{
+					out << a << " ";
+					if (inA >> a)
+						Afull = false;
+					else
+						Afull = true;
+					countA++;
+				}
+				else
+				{
+					out << b << " ";
+					if (inB >> b)
+						Bfull = false;
+					else
+						Bfull = true;
+					countB++;
+				}
+
+			while (countA < partSize && !Afull)
+			{
+				out << a << " ";
+				if (inA >> a)
+					Afull = false;
+				else
+					Afull = true;
+				countA++;
+			}
+			while (countB < partSize && !Bfull)
+			{
+				out << b << " ";
+				if (inB >> b)
+					Bfull = false;
+				else
+					Bfull = true;
+				countB++;
+			}
+		}
+
+		inA.close();
+		inB.close();
+		out.close();
+	}
+	in.open("D:/GitKraken/Lab_works/3 semester/Algorithms and data structures/Sort/out.txt");
+	int i = 0;
+	while (!in.eof())
+	{
+		in >> mas[i];
+		i++;
+	}
+	in.close();
 }
 
 int main()
 {
 	cout << "Enter the size of the array \n";
-	int n; cin >> n;
+	int n, x; cin >> n;
 	int* mas = new int[n];
 Start:
 	srand(time(NULL));
@@ -417,12 +418,9 @@ Start:
 		mas[i] = rand() % 100-50;
 	}
 
-	//CreateRuns(5, n);
-	//PolyPhaseMerge(5);
-
-	cout << "\n Sort: \n 1. Comb Sort \n 2. Insertion Sort  \n 3. Selection Sort \n 4. Shell Sort \n 5. Radix Sort\n 6. Heap Sort \n 7. Merge Sort \n 8. Quick_Sort \n Choose a sort number - ";
+	cout << "\n Sort: \n 1. Comb Sort \n 2. Insertion Sort  \n 3. Selection Sort \n 4. Shell Sort \n 5. Radix Sort\n 6. Heap Sort \n 7. Merge Sort \n 8. Quick_Sort \n 9. PolyPhaseMerge_Sort \n Choose a sort number - ";
 What:
-	int x; cin >> x;
+	cin >> x;
 	switch (x)
 	{
 	case(1):write_out(mas, n); Comb_Sort(mas, n); break;
@@ -433,6 +431,7 @@ What:
 	case(6):write_out(mas, n); Heap_Sort(mas, n); break;
 	case(7):write_out(mas, n); Merge_Sort(mas, 0, n - 1); break;
 	case(8):write_out(mas, n); Quick_Sort(0, n - 1, mas); break;
+	case(9):write_out(mas, n); PolyPhaseMerge_Sort(mas); break;
 	case(404): return -1; break;
 	default: cout << "Choose another... "; goto What; break;
 	}
