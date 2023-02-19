@@ -80,7 +80,7 @@ void ConvexHull(vector<Point>& mas)
 
 int main()
 {
-	vector<Point> mas = { {0,3},{1,1},{2,2},{4,4},{0,0},{1,2},{3,1},{3,3} };
+	vector<Point> mas = { {0,-3},{1,1},{-2,2},{4,4},{0,0},{-1,2},{3,1},{-3,3} };
 	ConvexHull(mas);
 
 	return 0;
