@@ -22,7 +22,6 @@ void Quick_Sort(int low, int high, vector<Edge> &x)
 	}
 	int m = (low + high) / 2 + 1;
 	int k = x[m].weight;
-	//cout << "m= "<< m << " <" << x[m].left << ", " << x[m].right << ", " << k << ">\n";
 	int l = low - 1;
 	int r = high + 1;
 	while (1)
@@ -69,7 +68,7 @@ public:
 		cout << "\n Dano: \n";
 		for (int i = 0; i < n; i++)
 		{
-			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
+			cout << i << ": "; copy(v[i].begin(), v[i].end(),ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
 
@@ -102,9 +101,9 @@ public:
 			}
 
 		cout << "\n Itog: \n";
-		cout << "<left, right, weight> \n";
+		cout << "Edges : Weight \n";
 		 for (int i = 0; i < A.size(); i++)
-			 cout << "<" << A[i].left << ", " << A[i].right << ", " << A[i].weight << "> \n";
+			 cout << i+1 << ". " <<  A[i].left << " - " << A[i].right << " : " << A[i].weight << "\n";
 	}
 private:
 	int Num;

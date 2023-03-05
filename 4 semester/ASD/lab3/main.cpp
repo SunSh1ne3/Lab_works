@@ -27,7 +27,7 @@ public:
 		cout << "\n Dano: \n";
 		for (int i = 0; i < n; i++)
 		{
-			cout << i+1 << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
+			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
 	}
@@ -40,7 +40,7 @@ public:
 		while (!Q.empty())
 		{
 			u = Q.front(); 
-			Q_m->push_back(Q.front() + 1); 
+			Q_m->push_back(Q.front()); 
 			Q.pop();
 			for (auto i = v[u].begin(); i != v[u].end(); i++)
 				if (color[*i] == "white")
@@ -91,13 +91,13 @@ int main()
 {
 	int A[n][n] = {
 		{0,0,0,1,0,0,1,0},
-		{0,1,0,0,0,0,0,0},
+		{0,0,0,0,1,1,0,1},
 		{0,0,0,1,0,0,1,0},
 		{1,0,1,0,0,0,1,0},
-		{0,0,0,0,0,1,0,1},
+		{0,1,0,0,0,1,0,1},
 		{0,0,0,0,1,0,0,1},
 		{1,0,1,1,0,0,0,0},
-		{0,0,0,0,1,1,0,0},
+		{0,1,0,0,1,1,0,0},
 	};
 
 	for (int i = 0; i < n; i++)

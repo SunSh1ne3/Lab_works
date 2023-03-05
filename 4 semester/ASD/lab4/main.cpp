@@ -27,7 +27,7 @@ public:
 		cout << endl;
 		for (int i = 0; i < m; i++)
 		{
-			cout << i + 1 << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
+			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
 
@@ -35,7 +35,7 @@ public:
 		for (int i = 0; i < Q.size(); i++)
 		{
 			if (!Q[i].empty()) {
-				cout << i + 1 << ": ";
+				cout << i << ": ";
 				copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(cout, " "));
 				cout << endl;
 			}
@@ -49,7 +49,7 @@ public:
 		for (auto i = v[u].begin(); i != v[u].end(); i++)
 			if (color[*i] == "white")
 				Find(*i, Q_m);
-		Q_m->push_back(u+1);
+		Q_m->push_back(u);
 		color[u] = "black";
 	}
 
@@ -74,32 +74,21 @@ private:
 	int Num;
 	string *color;
 	list<int>* v;
-	//vector<int>* mas;
-	//int* comp;
 	vector<vector<int>> Q;
 
 };
 
 int main()
 {
-	/*int A[n][m]={
-		{0,0,0,0,0,1,0},
-		{1,0,1,1,0,1,0},
-		{0,0,0,1,1,0,0},
-		{0,0,0,0,1,0,0},
-		{0,0,1,0,0,1,1},
-		{0,0,0,0,0,0,0},
-		{1,0,0,0,0,1,0}
-	};*/
-	int A[n][m] = {
+	int A[n][n] = {
 		{0,0,0,1,0,0,1,0},
+		{0,0,0,0,1,1,0,1},
+		{0,0,0,1,0,0,1,0},
+		{1,0,1,0,0,0,1,0},
+		{0,1,0,0,0,1,0,1},
 		{0,0,0,0,1,0,0,1},
-		{0,0,0,1,0,0,1,0},
-		{1,0,1,0,0,0,1.0},
-		{0,1,0,0,0,0,0,1},
-		{0,0,0,0,0,0,0,0},
 		{1,0,1,1,0,0,0,0},
-		{0,1,0,0,1,0,0,0},
+		{0,1,0,0,1,1,0,0},
 	};
 	for (int i = 0; i < n; i++)
 	{

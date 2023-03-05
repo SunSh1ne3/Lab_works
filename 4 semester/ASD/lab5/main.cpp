@@ -28,7 +28,7 @@ public:
 		cout << "\n Dano: \n";
 		for (int i = 0; i < n; i++)
 		{
-			cout << i+1 << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
+			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
 	}
@@ -57,7 +57,7 @@ public:
 				if (mas[i][j] == 1)
 					v1[i].push_back(j);
 
-		cout << " Inv v: \n";
+		cout << " Inversion vers: \n";
 		for (int i = 0; i < n; i++)
 		{
 			cout << i << ": "; copy(v1[i].begin(), v1[i].end(), ostream_iterator<int>(cout, " "));
@@ -97,7 +97,7 @@ public:
 		t[u] = time++;
 	}
 
-	void DFS1()
+	void DFS_with_max()
 	{
 		for (int u = 0; u < Num; u++)
 			color[u] = "white";
@@ -109,30 +109,29 @@ public:
 			{
 				maxx = maxy(t);
 				if (color[u] == "white" && t.at(u) == maxx)
-					Find1(u, &time_queue);
+					Find_for_DFSwM(u, &time_queue);
 
 				Q.push_back(time_queue);
 				time_queue.clear();
 			}
 
-		cout << endl << " Comp: \n";
+		cout << endl << " Connected Components : \n";
 		for (int i = 0; i < Q.size(); i++)
 		{
 			if (!Q[i].empty()) {
-				cout << i + 1 << ": ";
-				copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(cout, " "));
+				cout << " "; copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(cout, " "));
 				cout << endl;
 			}
 		}
 	}
-	void Find1(int u, vector<int>* Q_m)
+	void Find_for_DFSwM(int u, vector<int>* Q_m)
 	{
 		color[u] = "grey";
 
 		for (auto i = v1[u].begin(); i != v1[u].end(); i++)
 			if (color[*i] == "white")
-				Find1(*i, Q_m);
-		Q_m->push_back(u + 1);
+				Find_for_DFSwM(*i, Q_m);
+		Q_m->push_back(u);
 		color[u] = "black";
 
 		t[u] = 0;
@@ -172,7 +171,7 @@ int main()
 	G.AddVers(A);
 	G.DFS();
 	G.invers(A);
-	G.DFS1();
+	G.DFS_with_max();
 
 	return 0;
 }
