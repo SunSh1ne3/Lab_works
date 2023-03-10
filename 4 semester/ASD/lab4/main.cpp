@@ -3,7 +3,8 @@
 #include <list>
 #include <iterator>
 #include <vector>
-const int n = 8, m = 8;
+#include <fstream>
+const int n = 8;
 using namespace std;
 
 class Graph
@@ -15,29 +16,36 @@ public:
 		color = new string[count];
 		v = new list<int>[count];
 	}
-	void AddVers(int mas[n][m])
+	void AddVers()
 	{
-		for (int i = 0; i <m; i++)
+		int element;
+		ifstream in; in.open("matrix.txt");
+		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
-				if (mas[i][j] == 1)
+			{
+				in >> element;
+				if (element == 1)
 					v[i].push_back(j);
+			}
+		in.close();
 	}
 	void Write_Vers()
 	{
+		
 		cout << endl;
-		for (int i = 0; i < m; i++)
+		for (int i = 0; i < n; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
-
-		cout << endl << "Comp: \n";
+		ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab4/out.txt");
+		out << "Comp: \n";
 		for (int i = 0; i < Q.size(); i++)
 		{
 			if (!Q[i].empty()) {
-				cout << i << ": ";
-				copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(cout, " "));
-				cout << endl;
+				out << i << ": ";
+				copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(out, " "));
+				out << endl;
 			}
 		}
 	}
@@ -75,30 +83,12 @@ private:
 	string *color;
 	list<int>* v;
 	vector<vector<int>> Q;
-
 };
 
 int main()
-{
-	int A[n][n] = {
-		{0,0,0,1,0,0,1,0},
-		{0,0,0,0,1,1,0,1},
-		{0,0,0,1,0,0,1,0},
-		{1,0,1,0,0,0,1,0},
-		{0,1,0,0,0,1,0,1},
-		{0,0,0,0,1,0,0,1},
-		{1,0,1,1,0,0,0,0},
-		{0,1,0,0,1,1,0,0},
-	};
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < m; j++)
-			cout << A[i][j] << " ";
-		cout << endl;
-	}
-	
-	Graph G(m);
-	G.AddVers(A);
+{	
+	Graph G(n);
+	G.AddVers();
 	G.FindInGraph();
 	G.Write_Vers();
 

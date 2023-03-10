@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <queue>
+#include <fstream>
 const int n = 8;
 using namespace std;
 
@@ -17,12 +18,18 @@ public:
 		c = new int[count];
 		v = new list<int>[count];
 	}
-	void AddVers(int mas[n][n])
+	void AddVers()
 	{
+		int element;
+		ifstream in; in.open("matrix.txt");
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
-				if (mas[i][j] == 1)
+			{
+				in >> element;
+				if (element == 1)
 					v[i].push_back(j);
+			}
+		in.close();
 
 		cout << "\n Dano: \n";
 		for (int i = 0; i < n; i++)
@@ -66,13 +73,14 @@ public:
 			time_queue.clear();
 		}
 
-		cout << endl << "Comp: \n";
+		ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab3/out.txt");
+		out << endl << "Comp: \n";
 		for (int i = 0; i < Q.size(); i++)
 		{
 			if (!Q[i].empty()) {
-				cout << i + 1 << ": ";
-				copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(cout, " "));
-				cout << endl;
+				out << i + 1 << ": ";
+				copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(out, " "));
+				out << endl;
 			}
 		}
 	}
@@ -89,26 +97,8 @@ private:
 
 int main()
 {
-	int A[n][n] = {
-		{0,0,0,1,0,0,1,0},
-		{0,0,0,0,1,1,0,1},
-		{0,0,0,1,0,0,1,0},
-		{1,0,1,0,0,0,1,0},
-		{0,1,0,0,0,1,0,1},
-		{0,0,0,0,1,0,0,1},
-		{1,0,1,1,0,0,0,0},
-		{0,1,0,0,1,1,0,0},
-	};
-
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-			cout << A[i][j] << " ";
-		cout << endl;
-	}
-
 	Graph G(n);
-	G.AddVers(A);
+	G.AddVers();
 	G.BFS_GRAPH();
 	return 0;
 }

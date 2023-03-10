@@ -3,6 +3,7 @@
 #include <list>
 #include <iterator>
 #include <vector>
+#include <fstream>
 const int n = 8;
 using namespace std;
 
@@ -18,12 +19,18 @@ public:
 		for (int i = 0; i < Num; i++)
 			t.push_back(0);
 	}
-	void AddVers(int mas[n][n])
+	void AddVers()
 	{
+		int element;
+		ifstream in; in.open("matrix.txt");
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
-				if (mas[i][j] == 1)
+			{
+				in >> element;
+				if (element == 1)
 					v[i].push_back(j);
+			}
+		in.close();
 
 		cout << "\n Dano: \n";
 		for (int i = 0; i < n; i++)
@@ -42,15 +49,18 @@ public:
 		return maxs;
 	}
 
-	void invers(int A[n][n])
+	void invers()
 	{
 		int ** mas = new int*[n];
 		for (int i = 0; i < n; i++)
 			mas[i] = new int[n];
 
+		int element;
+		ifstream in; in.open("matrix.txt");
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
-				mas[i][j] = A[j][i];
+				in >> mas[j][i];
+		in.close();
 
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
@@ -115,12 +125,13 @@ public:
 				time_queue.clear();
 			}
 
-		cout << endl << " Connected Components : \n";
+		ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab5/out.txt");
+		out << " Connected Components : \n";
 		for (int i = 0; i < Q.size(); i++)
 		{
 			if (!Q[i].empty()) {
-				cout << " "; copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(cout, " "));
-				cout << endl;
+				out << " "; copy(Q[i].begin(), Q[i].end(), ostream_iterator<int>(out, " "));
+				out << endl;
 			}
 		}
 	}
@@ -149,28 +160,10 @@ private:
 
 int main()
 {
-	int A[n][n] = {
-		{0,1,0,0,0,0,0,0},
-		{0,0,1,0,1,1,0,0},
-		{0,0,0,1,0,0,1,0},
-		{0,0,1,0,0,0,0,1},
-		{1,0,0,0,0,1,0,0},
-		{0,0,0,0,0,0,1,0},
-		{0,0,0,0,0,1,0,0},
-		{0,0,0,1,0,0,1,0},
-	};
-
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-			cout << A[i][j] << " ";
-		cout << endl;
-	}
-
 	Graph G(n);
-	G.AddVers(A);
+	G.AddVers();
 	G.DFS();
-	G.invers(A);
+	G.invers();
 	G.DFS_with_max();
 
 	return 0;

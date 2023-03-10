@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <queue>
+#include <fstream>
 const int n = 9;
 using namespace std;
 struct Edge {
@@ -55,15 +56,21 @@ public:
 		parent = new int[count];
 		v = new list<int>[count];
 	}
-	void AddVers(int mas[n][n])
+	void AddVers()
 	{
+		int element;
+		ifstream in; in.open("matrix.txt");
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
-				if (mas[i][j] != 0)
+			{
+				in >> element;
+				if (element != 0)
 				{
-					g.push_back(Edge(i, j, mas[i][j]));
+					g.push_back(Edge(i, j, element));
 					v[i].push_back(j);
 				}
+			}
+		in.close();
 
 		cout << "\n Dano: \n";
 		for (int i = 0; i < n; i++)
@@ -99,11 +106,11 @@ public:
 				A.push_back(g[i]);
 				Union(Find_Set(g[i].left), Find_Set(g[i].right));
 			}
-
-		cout << "\n Itog: \n";
-		cout << "Edges : Weight \n";
+		ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab6/out.txt");
+		out << "Itog: \n";
+		out << "Edges : Weight \n";
 		 for (int i = 0; i < A.size(); i++)
-			 cout << i+1 << ". " <<  A[i].left << " - " << A[i].right << " : " << A[i].weight << "\n";
+			 out << i+1 << ". " <<  A[i].left << " - " << A[i].right << " : " << A[i].weight << "\n";
 	}
 private:
 	int Num;
@@ -114,27 +121,8 @@ private:
 
 int main()
 {
-	int A[n][n] = {
-		{0,2,0,1,3,0,0,0,0},
-		{2,0,0,0,3,0,0,5,0},
-		{0,0,0,0,0,1,0,0,2},
-		{1,0,0,0,0,0,3,0,0},
-		{3,3,0,0,0,0,4,4,0},
-		{0,0,1,0,0,0,0,0,2},
-		{2,0,0,3,4,0,0,0,0},
-		{0,5,0,0,4,0,0,0,0},
-		{0,0,2,0,0,2,0,0,0}
-	};
-
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-			cout << A[i][j] << " ";
-		cout << endl;
-	}
-
 	Graph G(n);
-	G.AddVers(A);
+	G.AddVers();
 	G.MST_Kruskal();
 	return 0;
 }
