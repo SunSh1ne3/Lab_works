@@ -39,26 +39,7 @@ public:
 		}
 	}
 
-	void BFS(int s, vector<int> *Q_m)
-	{
-		queue <int> Q;
-		Q.push(s);
-		int u = 0;
-		while (!Q.empty())
-		{
-			u = Q.front(); 
-			Q_m->push_back(Q.front()); 
-			Q.pop();
-			for (auto i = v[u].begin(); i != v[u].end(); i++)
-				if (color[*i] == "white")
-				{
-					color[*i] = "grey";
-					Q.push(*i);
-				}
-			color[u] = "black";
-		}
-		
- 	}
+
 	void BFS_GRAPH()
 	{
 		for (int u = 0; u < Num; u++)
@@ -84,8 +65,26 @@ public:
 			}
 		}
 	}
-
-	
+protected:
+	void BFS(int s, vector<int>* Q_m)
+	{
+		queue <int> Q;
+		Q.push(s);
+		int u = 0;
+		while (!Q.empty())
+		{
+			u = Q.front();
+			Q_m->push_back(Q.front());
+			Q.pop();
+			for (auto i = v[u].begin(); i != v[u].end(); i++)
+				if (color[*i] == "white")
+				{
+					color[*i] = "grey";
+					Q.push(*i);
+				}
+			color[u] = "black";
+		}
+	}
 private:
 	int Num;
 	string* color;

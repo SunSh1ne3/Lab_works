@@ -81,17 +81,6 @@ public:
 
 	}
 	
-	int Find_Set(int i)
-	{
-		if (parent[i] == i)
-			return i;
-		else
-			return Find_Set(parent[i]);
-	}
-	void Union(int u, int v)
-	{
-		parent[u] = parent[v];
-	}
 	void MST_Kruskal()
 	{
 		vector<Edge> A;
@@ -111,6 +100,18 @@ public:
 		out << "Edges : Weight \n";
 		 for (int i = 0; i < A.size(); i++)
 			 out << i+1 << ". " <<  A[i].left << " - " << A[i].right << " : " << A[i].weight << "\n";
+	}
+protected:
+	int Find_Set(int i)
+	{
+		if (parent[i] == i)
+			return i;
+		else
+			return Find_Set(parent[i]);
+	}
+	void Union(int u, int v)
+	{
+		parent[u] = parent[v];
 	}
 private:
 	int Num;

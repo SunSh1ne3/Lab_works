@@ -50,17 +50,6 @@ public:
 		}
 	}
 
-	void Find(int u, vector<int>* Q_m)
-	{
-		color[u] = "grey";
-		
-		for (auto i = v[u].begin(); i != v[u].end(); i++)
-			if (color[*i] == "white")
-				Find(*i, Q_m);
-		Q_m->push_back(u);
-		color[u] = "black";
-	}
-
 	void FindInGraph()
 	{
 		for (int u = 0; u < Num; u++)
@@ -76,7 +65,17 @@ public:
 			Q.push_back(time_queue);
 			time_queue.clear();
 		}
+	}
+protected:
+	void Find(int u, vector<int>* Q_m)
+	{
+		color[u] = "grey";
 
+		for (auto i = v[u].begin(); i != v[u].end(); i++)
+			if (color[*i] == "white")
+				Find(*i, Q_m);
+		Q_m->push_back(u);
+		color[u] = "black";
 	}
 private:
 	int Num;
@@ -91,6 +90,5 @@ int main()
 	G.AddVers();
 	G.FindInGraph();
 	G.Write_Vers();
-
 	return 0;
 }

@@ -19,6 +19,7 @@ public:
 		for (int i = 0; i < Num; i++)
 			t.push_back(0);
 	}
+
 	void AddVers()
 	{
 		int element;
@@ -38,6 +39,41 @@ public:
 			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
+	}	
+
+	void DFS()
+	{
+		for (int u = 0; u < Num; u++)
+			color[u] = "white";
+
+		for (int u = 0; u < Num; u++)
+			if (color[u] == "white")
+				Find(u);
+
+		cout << "\n DFS: \n";
+		for (int i = 0; i < Num; i++)
+			cout << i << ": " << t.at(i) << endl;
+		cout << endl;
+	}
+	
+	void Strongly_coupled_components()
+	{
+		DFS();
+		Invers();
+		DFS_with_max();
+	}
+protected:
+	void Find_for_DFSwM(int u, vector<int>* Q_m)
+	{
+		color[u] = "grey";
+
+		for (auto i = v1[u].begin(); i != v1[u].end(); i++)
+			if (color[*i] == "white")
+				Find_for_DFSwM(*i, Q_m);
+		Q_m->push_back(u);
+		color[u] = "black";
+
+		t[u] = 0;
 	}
 
 	int maxy(vector<int> mas)
@@ -49,9 +85,9 @@ public:
 		return maxs;
 	}
 
-	void invers()
+	void Invers()
 	{
-		int ** mas = new int*[n];
+		int** mas = new int* [n];
 		for (int i = 0; i < n; i++)
 			mas[i] = new int[n];
 
@@ -79,40 +115,12 @@ public:
 		delete[] mas;
 	}
 
-	void DFS()
-	{
-		for (int u = 0; u < Num; u++)
-			color[u] = "white";
-
-		for (int u = 0; u < Num; u++)
-			if (color[u] == "white")
-				Find(u);
-
-		cout << "\n DFS: \n";
-		for (int i = 0; i < Num; i++)
-			cout << i << ": " << t.at(i) << endl;
-		cout << endl;
-	}
-
-	void Find(int u)
-	{
-		color[u] = "grey";
-		t[u] = ++time;
-		
-		for (auto i = v[u].begin(); i != v[u].end(); i++)
-			if (color[*i] == "white")
-				Find(*i);
-
-		color[u] = "black";
-		t[u] = time++;
-	}
-
 	void DFS_with_max()
 	{
 		for (int u = 0; u < Num; u++)
 			color[u] = "white";
 
-		int maxx=-1;
+		int maxx = -1;
 		vector<int> time_queue;
 		for (int i = 0; i < Num; i++)
 			for (int u = 0; u < Num; u++)
@@ -135,17 +143,18 @@ public:
 			}
 		}
 	}
-	void Find_for_DFSwM(int u, vector<int>* Q_m)
+
+	void Find(int u)
 	{
 		color[u] = "grey";
+		t[u] = ++time;
 
-		for (auto i = v1[u].begin(); i != v1[u].end(); i++)
+		for (auto i = v[u].begin(); i != v[u].end(); i++)
 			if (color[*i] == "white")
-				Find_for_DFSwM(*i, Q_m);
-		Q_m->push_back(u);
-		color[u] = "black";
+				Find(*i);
 
-		t[u] = 0;
+		color[u] = "black";
+		t[u] = time++;
 	}
 private:
 	int Num;
@@ -162,9 +171,7 @@ int main()
 {
 	Graph G(n);
 	G.AddVers();
-	G.DFS();
-	G.invers();
-	G.DFS_with_max();
+	G.Strongly_coupled_components();
 
 	return 0;
 }
