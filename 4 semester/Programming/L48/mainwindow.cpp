@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    Pole(rect);
 }
 
 MainWindow::~MainWindow()
@@ -26,9 +27,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    QRect rect=contentsRect();
-    if(n<1)
-        Pole(rect);
+    rect=contentsRect();
+
     QPainter painter(this);
     painter.drawText(rect.width()-2*size,size,QString::number(n));
 
@@ -91,6 +91,10 @@ void MainWindow::InTable(int k)
                     mas[i+1][j].flag=true;
                 if(!mas[i][j+1].flag && mas[i][j+1].color==vibor[k].color)
                     mas[i][j+1].flag=true;
+                if(!mas[i-1][j].flag && mas[i-1][j].color==vibor[k].color)
+                    mas[i-1][j].flag=true;
+                if(!mas[i+1][j].flag && mas[i+1][j].color==vibor[k].color)
+                    mas[i+1][j].flag=true;
                 mas[i][j].color=vibor[k].color;
             }
 

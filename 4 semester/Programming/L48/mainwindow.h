@@ -19,6 +19,7 @@ struct Kubik
         color=m_color;
         rect=m_rect;
         flag=m_flag;
+
     }
 };
 
@@ -40,5 +41,6 @@ private:
     Kubik mas[12][12];
     Kubik vibor[6];
     int size=40, n=0;
+    QRect rect=contentsRect();
 };
 #endif // MAINWINDOW_H
