@@ -93,8 +93,7 @@ void MainWindow::InTable(int k)
                     mas[i][j+1].flag=true;
                 if(!mas[i-1][j].flag && mas[i-1][j].color==vibor[k].color)
                     mas[i-1][j].flag=true;
-                if(!mas[i+1][j].flag && mas[i+1][j].color==vibor[k].color)
-                    mas[i+1][j].flag=true;
+
                 mas[i][j].color=vibor[k].color;
             }
 
