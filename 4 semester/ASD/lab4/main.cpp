@@ -59,9 +59,8 @@ public:
 		for (int u = 0; u < Num; u++)
 		{
 			if (color[u] == "white")
-			{
 				Find(u, &time_queue);
-			}
+			
 			Q.push_back(time_queue);
 			time_queue.clear();
 		}
