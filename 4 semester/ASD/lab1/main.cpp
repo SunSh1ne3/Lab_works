@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
+#include <algorithm>
+#include <stack>
 
 using namespace std;
 
@@ -8,11 +10,11 @@ struct Point
 	int x, y;
 };
 
+Point p0;
 int rotate(Point A, Point B, Point C)
 {
 	return (B.y - A.y)*(C.x - B.x)  - (B.x - A.x)*(C.y - B.y);
 }
-
 
 void write(vector<Point> mas, int n)
 {
@@ -42,16 +44,16 @@ void Low_Point(vector<Point> &mas)
 void Sort(vector<Point>& mas)
 {
 	int j = 0;
-	for (int i = 1; i < mas.size(); i++)
+	for (int i = 2; i < mas.size(); i++)
 	{
 		j = i;
-		while (j > 1 && rotate(mas[0], mas[i - 1], mas[i]) < 0)
+		while (j > 1 && (rotate(mas[0], mas[j - 1], mas[j]) < rotate(mas[0], mas[j-2], mas[j-1])))
 		{
-			swap(mas[i-1], mas[i]);
-			j--;
+			swap(mas[j-1], mas[j]);
+			j--;		
 		}
 	}
-	cout << "Sort: \n";
+	cout << "Sort1: \n";
 	write(mas, mas.size());
 }
 
@@ -63,7 +65,6 @@ void Delete_extra(vector<Point>& mas)
 			mas.erase(mas.cbegin() + (i - 1));
 			i--;
 		}
-
 	cout << "Itog: \n";
 	write(mas, mas.size());
 }
@@ -79,7 +80,7 @@ void ConvexHull(vector<Point>& mas)
 
 int main()
 {
-	vector<Point> mas = { {0,3},{1,1},{2,2},{4,4},{0,0},{1,2},{3,1},{3,3} };
+	vector<Point> mas = { {0,3},{1,1},{0,0},{1,2},{4,4},{2,2},{3,1},{3,3},{-4,-4 },{-4,4},{4,-4} };
 	ConvexHull(mas);
 
 	return 0;

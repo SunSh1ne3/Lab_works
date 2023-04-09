@@ -4,7 +4,7 @@
 #include <vector>
 #include <queue>
 #include <fstream>
-const int n = 9;
+
 using namespace std;
 struct Edge {
 	int left, right, weight;
@@ -50,18 +50,35 @@ void Quick_Sort(int low, int high, vector<Edge> &x)
 class Graph
 {
 public:
-	Graph(int count)
+	Graph()
 	{
-		Num = count;
-		parent = new int[count];
-		v = new list<int>[count];
+		int element;
+		ifstream in; in.open("matrix.txt");
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		else
+			while (in >> element)
+				Num++;
+			
+		in.close();
+		Num = sqrt(Num);
+		parent = new int[Num];
+		v = new list<int>[Num];
 	}
 	void AddVers()
 	{
 		int element;
 		ifstream in; in.open("matrix.txt");
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		for (int i = 0; i < Num; i++)
+			for (int j = 0; j < Num; j++)
 			{
 				in >> element;
 				if (element != 0)
@@ -73,7 +90,7 @@ public:
 		in.close();
 
 		cout << "\n Dano: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(),ostream_iterator<int>(cout, " "));
 			cout << endl;
@@ -114,7 +131,7 @@ protected:
 		parent[u] = parent[v];
 	}
 private:
-	int Num;
+	int Num=0;
 	list<int> *v;
 	vector<Edge> g;
 	int *parent;
@@ -122,7 +139,7 @@ private:
 
 int main()
 {
-	Graph G(n);
+	Graph G;
 	G.AddVers();
 	G.MST_Kruskal();
 	return 0;

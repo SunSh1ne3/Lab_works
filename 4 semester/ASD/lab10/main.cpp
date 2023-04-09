@@ -5,7 +5,7 @@
 #include <fstream>
 #include <stack>
 
-const int n = 5, INF=1e11;
+const int INF=1e11;
 using namespace std;
 struct Edge {
 	int left, right, weight;
@@ -20,12 +20,23 @@ struct Edge {
 class Graph
 {
 public:
-	Graph(int count)
+	Graph()
 	{
-		Num = count;
+		int element;
+		ifstream in; in.open("matrix.txt");
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		else
+			while (in >> element)
+				Num++;
 
-		deg = new int[count];
-		v = new list<int>[count];
+		in.close();
+		Num = sqrt(Num);
+		deg = new int[Num];
+		v = new list<int>[Num];
 	}
 	void AddVers()
 	{
@@ -34,11 +45,14 @@ public:
 		int element;
 		ifstream in; in.open("matrix.txt");
 		if (!in)
-			cout << "File! \n"; 
+		{
+			cout << "File! \n";
+			exit(1);
+		}
 		else
 		{
-			for (int i = 0; i < n; i++)
-				for (int j = 0; j < n; j++)
+			for (int i = 0; i < Num; i++)
+				for (int j = 0; j < Num; j++)
 				{
 					in >> element;
 					if (element != 0)
@@ -52,7 +66,7 @@ public:
 		in.close();
 		
 		cout << "\n Dano: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(),ostream_iterator<int>(cout, " "));
 			cout << endl;
@@ -128,7 +142,7 @@ protected:
 		}
 	}
 private:
-	int Num;
+	int Num=0;
 	list<int> *v;
 	vector<Edge> g;
 	int *deg;
@@ -136,7 +150,7 @@ private:
 
 int main()
 {
-	Graph G(n);
+	Graph G;
 	G.AddVers();
 	if (G.CheckForEuler())
 		G.EulerPath(0);

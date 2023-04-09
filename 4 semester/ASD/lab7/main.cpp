@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 
-const int n = 9, INF=1e11;
+const int INF=1e11;
 using namespace std;
 struct Edge {
 	int left, right, weight;
@@ -19,18 +19,35 @@ struct Edge {
 class Graph
 {
 public:
-	Graph(int count)
+	Graph()
 	{
-		Num = count;
-		parent = new int[count];
-		v = new list<int>[count];
+		int element;
+		ifstream in; in.open("matrix.txt");
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		else
+			while (in >> element)
+				Num++;
+
+		in.close();
+		Num = sqrt(Num);
+		parent = new int[Num];
+		v = new list<int>[Num];
 	}
 	void AddVers()
 	{
 		int element;
 		ifstream in; in.open("matrix.txt");
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		for (int i = 0; i < Num; i++)
+			for (int j = 0; j < Num; j++)
 			{
 				in >> element;
 				if (element != 0)
@@ -42,7 +59,7 @@ public:
 		in.close();
 
 		cout << "\n Dano: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(),ostream_iterator<int>(cout, " "));
 			cout << endl;
@@ -54,13 +71,13 @@ public:
 		for (int i = 0; i < Num; i++)
 			inMST.push_back(false);
 
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 			if (!inMST[i])
 				MST_Prim(i);
 
 		ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab7/out.txt");
 		out <<"V - Parent : Weight \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			if(parent[i]!=-1)
 				out << i << " - " << parent[i]  << " : " << w(i, parent[i]) << endl;
@@ -142,7 +159,7 @@ protected:
 		return false;
 	}
 private:
-	int Num;
+	int Num=0;
 	list<int> *v;
 	vector<Edge> g;
 	vector <bool> inMST;
@@ -154,7 +171,7 @@ int main()
 	cout << "     (0) -- 2 -- (1) \n    / | \\       / | \n   1  |  3     3  |\n  /   |   \\   /   |\n(3)   2    (4)    5\n  \\   |   /   \\   |\n   3  |  4     4  | \n    \\ | /       \\ | \n     (6)         (7)" << endl;
 	cout << endl << "     (2) \n    / | \n   1  |\n  /   | \n(5)   2 \n  \\   | \n   2  | \n    \\ | \n     (8)";
 
-	Graph G(n);
+	Graph G;
 	G.AddVers();
 	G.MST();
 	return 0;

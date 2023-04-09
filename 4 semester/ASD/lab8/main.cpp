@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 
-const int n = 6, INF=1e11;
+const int INF=1e11;
 using namespace std;
 struct Edge {
 	int left, right, weight;
@@ -19,23 +19,38 @@ struct Edge {
 class Graph
 {
 public:
-	Graph(int count)
+	Graph()
 	{
-		Num = count;
-		d = new int[count];
-		v = new list<int>[count];
+		int element;
+		ifstream in; in.open("matrix.txt");
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		else
+			while (in >> element)
+				Num++;
+
+		in.close();
+		Num = sqrt(Num);
+		d = new int[Num];
+		v = new list<int>[Num];
 	}
 	void AddVers()
 	{
 		int element;
 		ifstream in; in.open("matrix.txt");
 		if (!in)
-			cout << "File! \n"; 
+		{
+			cout << "File! \n";
+			exit(1);
+		}
 		else
 		{
-			for (int i = 0; i < n; i++)
+			for (int i = 0; i < Num; i++)
 			{
-				for (int j = 0; j < n; j++)
+				for (int j = 0; j < Num; j++)
 				{
 					in >> element;
 					if (element != 0)
@@ -49,7 +64,7 @@ public:
 		in.close();
 		
 		cout << "\n Dano: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(),ostream_iterator<int>(cout, " "));
 			cout << endl;
@@ -69,7 +84,7 @@ public:
 
 		while (!Q.empty())
 		{
-			pair<int, bool> u = Extract_Min(Q, d);
+			pair<int, bool> u = Extract_Min(Q);
 			for (auto i = v[u.first].begin(); i != v[u.first].end(); i++)
 			{
 				if (d[u.first] + w(u.first, *i) < d[*i])
@@ -88,7 +103,7 @@ public:
 	}
 protected:
 
-	pair<int, bool> Extract_Min(vector<pair<int, bool>>& Q_m, int d[n])
+	pair<int, bool> Extract_Min(vector<pair<int, bool>>& Q_m)
 	{
 		int minn = INF, x = -1; pair<int, bool> u;
 		for (int i = 0; i < Q_m.size(); i++)
@@ -122,7 +137,7 @@ protected:
 	}
 
 private:
-	int Num;
+	int Num=0;
 	list<int> *v;
 	vector<Edge> g;
 	vector <pair<int, bool>> Q;
@@ -131,7 +146,7 @@ private:
 
 int main()
 {
-	Graph G(n);
+	Graph G;
 	G.AddVers();
 	G.Dijkstra(0);
 	return 0;

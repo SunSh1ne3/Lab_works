@@ -4,18 +4,29 @@
 #include <iterator>
 #include <vector>
 #include <fstream>
-const int n = 8;
+
 using namespace std;
 
 class Graph
 {
 public:
-	Graph(int count)
+	Graph()
 	{
-		Num = count;
-		color = new string[count];
-		v = new list<int>[count];
-		v1 = new list<int>[count];
+		int element;
+		ifstream in; in.open("matrix.txt");
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		else
+			while (in >> element)
+				Num++;
+		in.close();
+		Num = sqrt(Num);
+		visit = new bool[Num];
+		v = new list<int>[Num];
+		v1 = new list<int>[Num];
 		for (int i = 0; i < Num; i++)
 			t.push_back(0);
 	}
@@ -24,8 +35,13 @@ public:
 	{
 		int element;
 		ifstream in; in.open("matrix.txt");
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		for (int i = 0; i < Num; i++)
+			for (int j = 0; j < Num; j++)
 			{
 				in >> element;
 				if (element == 1)
@@ -34,7 +50,7 @@ public:
 		in.close();
 
 		cout << "\n Dano: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
@@ -44,10 +60,10 @@ public:
 	void DFS()
 	{
 		for (int u = 0; u < Num; u++)
-			color[u] = "white";
+			visit[u] = false;
 
 		for (int u = 0; u < Num; u++)
-			if (color[u] == "white")
+			if (!visit[u])
 				Find(u);
 
 		cout << "\n DFS: \n";
@@ -65,13 +81,12 @@ public:
 protected:
 	void Find_for_DFSwM(int u, vector<int>* Q_m)
 	{
-		color[u] = "grey";
+		visit[u] = true;
 
 		for (auto i = v1[u].begin(); i != v1[u].end(); i++)
-			if (color[*i] == "white")
+			if (!visit[*i])
 				Find_for_DFSwM(*i, Q_m);
 		Q_m->push_back(u);
-		color[u] = "black";
 
 		t[u] = 0;
 	}
@@ -87,30 +102,30 @@ protected:
 
 	void Invers()
 	{
-		int** mas = new int* [n];
-		for (int i = 0; i < n; i++)
-			mas[i] = new int[n];
+		int** mas = new int* [Num];
+		for (int i = 0; i < Num; i++)
+			mas[i] = new int[Num];
 
 		int element;
 		ifstream in; in.open("matrix.txt");
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+		for (int i = 0; i < Num; i++)
+			for (int j = 0; j < Num; j++)
 				in >> mas[j][i];
 		in.close();
 
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+		for (int i = 0; i < Num; i++)
+			for (int j = 0; j < Num; j++)
 				if (mas[i][j] == 1)
 					v1[i].push_back(j);
 
 		cout << " Inversion vers: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v1[i].begin(), v1[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
 
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 			delete[] mas[i];
 		delete[] mas;
 	}
@@ -118,7 +133,7 @@ protected:
 	void DFS_with_max()
 	{
 		for (int u = 0; u < Num; u++)
-			color[u] = "white";
+			visit[u] = false;
 
 		int maxx = -1;
 		vector<int> time_queue;
@@ -126,7 +141,7 @@ protected:
 			for (int u = 0; u < Num; u++)
 			{
 				maxx = maxy(t);
-				if (color[u] == "white" && t.at(u) == maxx)
+				if (!visit[u] && t.at(u) == maxx)
 					Find_for_DFSwM(u, &time_queue);
 
 				Q.push_back(time_queue);
@@ -146,19 +161,18 @@ protected:
 
 	void Find(int u)
 	{
-		color[u] = "grey";
+		visit[u] = true;
 		t[u] = ++time;
 
 		for (auto i = v[u].begin(); i != v[u].end(); i++)
-			if (color[*i] == "white")
+			if (!visit[*i])
 				Find(*i);
 
-		color[u] = "black";
 		t[u] = time++;
 	}
 private:
-	int Num;
-	string* color;
+	int Num=0;
+	bool* visit;
 	list<int>* v;
 	list<int>* v1;
 	vector<int> t;
@@ -169,7 +183,7 @@ private:
 
 int main()
 {
-	Graph G(n);
+	Graph G;
 	G.AddVers();
 	G.Strongly_coupled_components();
 

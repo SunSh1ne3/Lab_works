@@ -4,26 +4,40 @@
 #include <vector>
 #include <queue>
 #include <fstream>
-const int n = 8;
+
 using namespace std;
 
 class Graph
 {
 public:
-	Graph(int count)
+	Graph()
 	{
-		Num = count;
-		color = new string[count];
-		d = new int[count];
-		c = new int[count];
-		v = new list<int>[count];
+		int element;
+		ifstream in; in.open("matrix.txt");
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		else
+			while (in >> element)
+				Num++;
+		in.close();
+		Num = sqrt(Num);
+		visit = new bool[Num];
+		v = new list<int>[Num];
 	}
 	void AddVers()
 	{
 		int element;
 		ifstream in; in.open("matrix.txt");
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+		if (!in)
+		{
+			cout << "File! \n";
+			exit(1);
+		}
+		for (int i = 0; i < Num; i++)
+			for (int j = 0; j < Num; j++)
 			{
 				in >> element;
 				if (element == 1)
@@ -32,23 +46,22 @@ public:
 		in.close();
 
 		cout << "\n Dano: \n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < Num; i++)
 		{
 			cout << i << ": "; copy(v[i].begin(), v[i].end(), ostream_iterator<int>(cout, " "));
 			cout << endl;
 		}
 	}
 
-
 	void BFS_GRAPH()
 	{
 		for (int u = 0; u < Num; u++)
-			color[u] = "white"; 
+			visit[u] = false; 
 
 		vector<int> time_queue;
 		for (int u = 0; u < Num; u++)
 		{
-			if (color[u] == "white")
+			if (!visit[u])
 				BFS(u, &time_queue);
 			Q.push_back(time_queue);
 			time_queue.clear();
@@ -74,29 +87,28 @@ protected:
 		while (!Q.empty())
 		{
 			u = Q.front();
+			visit[u] = true;
 			Q_m->push_back(Q.front());
 			Q.pop();
 			for (auto i = v[u].begin(); i != v[u].end(); i++)
-				if (color[*i] == "white")
+				if (!visit[*i])
 				{
-					color[*i] = "grey";
+					visit[*i] = true;
 					Q.push(*i);
 				}
-			color[u] = "black";
 		}
 	}
 private:
-	int Num;
-	string* color;
+	int Num=0;
+	bool* visit;
 	list<int>* v;
 	vector <int> comp;
 	vector<vector<int>> Q;
-	int *d, *c;
 };
 
 int main()
 {
-	Graph G(n);
+	Graph G;
 	G.AddVers();
 	G.BFS_GRAPH();
 	return 0;
