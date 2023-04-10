@@ -10,7 +10,6 @@ struct Point
 	int x, y;
 };
 
-Point p0;
 int rotate(Point A, Point B, Point C)
 {
 	return (B.y - A.y)*(C.x - B.x)  - (B.x - A.x)*(C.y - B.y);
@@ -49,7 +48,7 @@ void Sort(vector<Point>& mas)
 		j = i;
 		while (j > 1 && (rotate(mas[0], mas[j - 1], mas[j]) < rotate(mas[0], mas[j-2], mas[j-1])))
 		{
-			swap(mas[j-1], mas[j]);
+			swap(mas[j-1], mas[j]);-
 			j--;		
 		}
 	}
@@ -80,7 +79,7 @@ void ConvexHull(vector<Point>& mas)
 
 int main()
 {
-	vector<Point> mas = { {0,3},{1,1},{0,0},{1,2},{4,4},{2,2},{3,1},{3,3},{-4,-4 },{-4,4},{4,-4} };
+	vector<Point> mas = { {0,3},{1,1},{0,0},{1,2},{5,5},{2,2},{3,1},{3,3},{-5,-5 },{-5,5},{5,-5} };
 	ConvexHull(mas);
 
 	return 0;
