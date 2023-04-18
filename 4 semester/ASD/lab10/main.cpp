@@ -136,9 +136,14 @@ protected:
 		for (int i = 0; i < g.size(); i++)
 		{
 			if (g[i].left == w && g[i].right == u)
-				g.erase(g.cbegin() + i);
+			{	g.erase(g.cbegin() + i);
+			 	i--;
+			}
 			if (g[i].right == w && g[i].left == u)
+			{
 				g.erase(g.cbegin() + i);
+				i--;
+			}
 		}
 	}
 private:
