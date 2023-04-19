@@ -32,7 +32,7 @@ void KMP_pattern_search(string s, string q)
 {
 	if (s.length() < q.length())
 		exit(1);
-
+	vector<int> k_mas;
 	int* prefix = new int[q.length()];
 	kmp_init(prefix, q);
 
@@ -47,7 +47,7 @@ void KMP_pattern_search(string s, string q)
 		}
 		if (j == q.length())
 		{
-			cout << " =k=  "<< i - j + 1<< endl;
+			k_mas.push_back(i-j+1);
 			j = prefix[j - 1];
 		}
 		else if (i <= s.length() && q[j] != s[i])
@@ -58,12 +58,17 @@ void KMP_pattern_search(string s, string q)
 				j = prefix[j - 1];
 		}
 	}
+	if (k_mas.empty())
+		cout << "Not found!! \n";
+	else
+		for (auto i : k_mas)
+			cout << i << " ";
 	delete[] prefix;
 }
 
 int main()
 {
-	string s="aaaaabaaaaabaaaa", q = "baaaa";
+	string s="aaaaabaaabaaabbabbababbbababbabbabbababbaaabbaaabaabaaabaaaa", q = "b";
 	for (int i = 0; i < s.length(); i++)
 		cout << s[i] << ":" << i+1 << " ";
 	cout << endl;

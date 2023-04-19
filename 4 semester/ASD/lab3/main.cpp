@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <string>
 #include <list>
 #include <vector>
 #include <queue>
@@ -102,7 +101,6 @@ private:
 	int Num=0;
 	bool* visit;
 	list<int>* v;
-	vector <int> comp;
 	vector<vector<int>> Q;
 };
 

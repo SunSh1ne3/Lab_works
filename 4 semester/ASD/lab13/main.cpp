@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 int last(string q, char x)
@@ -60,6 +61,7 @@ void BM_pattern_search(string s, string q)
 {
 	if (s.size() < q.size())
 		exit(1);
+	vector<int> k_mas;
 	int* d = new int[256];
 	init_d(d, q);
 	int j;
@@ -71,16 +73,21 @@ void BM_pattern_search(string s, string q)
 			if (s[k + j] != q[j])
 				break;
 		if (j == 0)
-			cout << " =k= " << k + 1 << endl;
+			k_mas.push_back(k + 1);
 	}
+	if (k_mas.empty())
+		cout << "Not found !! \n";
+	else
+		for (auto i : k_mas)
+			cout << i << " ";
 	delete[] d;
 }
 
 int main()
 {
-	string s="a friend in need is a friend indeed", q = "indeed";
+	string s="greater getter greating gettingetting", q = "getting";
 	for (int i = 0; i < s.size(); i++)
-		cout << s[i] << ":" << i << " ";
+		cout << s[i] << ":" << i+1 << " ";
 	cout << endl;
 	/*cout << "Enter the string: \n";
 	getline(cin, s);
