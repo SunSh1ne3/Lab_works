@@ -39,8 +39,11 @@ void RK_pattern_search(string s, string q)
 	if (k_mas.empty())
 		cout << "Not found !! \n";
 	else
+	{
+		cout << "\nFound! \n";
 		for (auto i : k_mas)
 			cout << i << " ";
+	}
 }
 
 int main()
