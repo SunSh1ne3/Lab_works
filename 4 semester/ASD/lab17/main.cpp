@@ -18,11 +18,15 @@ int main()
 	int count;	cin >> count;
 
 	vector <float> things;
-	for (int i = 0; i < count; i++)
+	float a;
+	while (things.size() < count)
 	{
-		things.push_back(round((0.1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.9 - 0.1)))) * 10) / 10);
-		cout << things[i] << " ";
+		cin >> a;
+		things.push_back(a);
 	}
+	for (int i = 0; i < things.size(); i++)
+		cout << things[i] << " ";
+
 	vector<vector<float>> baskets;
 
 	while (!things.empty())

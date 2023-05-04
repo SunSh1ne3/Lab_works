@@ -2,37 +2,85 @@
 #include <vector>
 using namespace std;
 
-bool SumSub(vector<int> num, int n, int sum)
+void Quick_Sort(int low, int high, vector<int> &x)
 {
-	if (sum == 0)
-		return true;
-
-	if (n == 0)
-		return false;
-
-	if (num[n - 1] > sum)
-		return SumSub(num, n - 1, sum);
-
-	return SumSub(num, n - 1, sum) || SumSub(num, n - 1, sum - num[n - 1]);
+	if (low >= high)
+	{
+		return;
+	}
+	int m = (low + high) / 2 + 1;
+	int k = x[m];
+	int l = low - 1;
+	int r = high + 1;
+	while (1)
+	{
+		do
+		{
+			l++;
+		} while (x[l] < k);
+		do
+		{
+			r--;
+		} while (x[r] > k);
+		if (l >= r)
+		{
+			break;
+		}
+		swap(x[l], x[r]);
+	}
+	r = l;
+	l--;
+	Quick_Sort(low, l, x);
+	Quick_Sort(r, high, x);
 }
+bool SummSubb(vector<int> numbers, int sum)
+{
+	int i = 0, s=0;
+	vector<int>summ;
+	start:
+	if (s + numbers[i] <= sum)
+	{
+		s += numbers[i];
+		summ.push_back(numbers[i]);
+		i++;
+		
+		if (i < numbers.size())
+		{
+			goto start;
+		}
+	}
 
+	if (s == sum)
+	{ 
+		cout << "\n Sum is found! \n Sum:\n";
+		for (int i : summ)
+			cout << i << " ";
+		return true;
+	}
+	else
+	{
+		cout << "\n Oh no :( \n";
+		return false;
+	}
+}
 int main()
 {
-	srand(time(0));
-	cout << "Sum? \n";
+	cout << "Sum?  ";
 	int sum; cin >> sum;
-	cout << "How many numbers?\n";
+	cout << "How many numbers? ";
 	int count; cin >> count;
-	vector<int> numbers;
-	for (int i = 0; i < count; i++)
+	if (count < 1)
+		exit(1);
+	vector<int>numbers;
+	int a;
+	while(numbers.size() < count)
 	{
-		numbers.push_back(rand() % sum + 1);
-		cout << numbers[i] << " ";
+		cin >> a;
+		numbers.push_back(a);
 	}
-	if (SumSub(numbers, numbers.size(), sum))
-		cout << "\n Sum is found! \n";
-	else
-		cout << "\n Oh no :( \n";
-
+	for(auto i: numbers)
+		cout << i << " ";
+	Quick_Sort(0, numbers.size()-1, numbers);
+	SummSubb(numbers, sum);
 	return 0;
 }

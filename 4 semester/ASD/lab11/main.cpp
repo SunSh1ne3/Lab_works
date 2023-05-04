@@ -14,13 +14,6 @@ string Count(string q)
 	return time;
 }
 
-void write(int** mas, int n, int m)
-{
-	cout << endl;
-	
-}
-
-
 void init_mas(int** mas, string q, int m)
 {	
 	int len = 0;	
@@ -76,7 +69,7 @@ void SM_pattern_search(string s, string q, int **mas)
 
 int main()
 {
-	string s="AAAAAACACAGACCCFFACACAGA", q="ACACAGA";
+	string s="AAABABABABAAAACACAGACCCFFACACAGAB", q="ABA";
 	/*cout << "Enter the string: \n";
 	getline(cin, s);
 	cout << "Enter sample: \n";

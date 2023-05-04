@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <list>
 #include <vector>
@@ -168,8 +168,6 @@ private:
 
 int main()
 {
-	cout << "     (0) -- 2 -- (1) \n    / | \\       / | \n   1  |  3     3  |\n  /   |   \\   /   |\n(3)   2    (4)    5\n  \\   |   /   \\   |\n   3  |  4     4  | \n    \\ | /       \\ | \n     (6)         (7)" << endl;
-	cout << endl << "     (2) \n    / | \n   1  |\n  /   | \n(5)   2 \n  \\   | \n   2  | \n    \\ | \n     (8)";
 
 	Graph G;
 	G.AddVers();
