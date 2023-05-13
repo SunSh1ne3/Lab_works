@@ -79,10 +79,22 @@ public:
 				if (d[g[j].left]!=INF && d[g[j].left] + g[j].weight < d[g[j].right])
 					d[g[j].right] = d[g[j].left] + g[j].weight;
 
-		ofstream out; out.open("E:/GitKraken/Lab_works/4 semester/ASD/lab9/out.txt");
-		out << "V : length \n";
-		for (int i = 0; i < Num; i++)
-			out << i << " : " << d[i] << endl;
+		
+		for (int j = 0; j < g.size(); j++)
+			if (d[g[j].left] != INF && d[g[j].left] + g[j].weight < d[g[j].right])
+			{
+				ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab9/out.txt");
+				cout << "Graph contains negative weight cycle";
+				out << "Graph contains negative weight cycle";
+				break;
+			}
+			else
+			{
+				ofstream out; out.open("D:/GitKraken/Lab_works/4 semester/ASD/lab9/out.txt");
+				out << "V : length \n";
+				for (int i = 0; i < Num; i++)
+					out << i << " : " << d[i] << endl;
+			}	
 	}
 	
 private:
