@@ -125,7 +125,7 @@ protected:
 		{
 			if (g[i].left == w && g[i].right == u)
 				return true;
-			if (g[i].right == w && g[i].left == u)
+			else if (g[i].right == w && g[i].left == u)
 				return true;
 		}
 		
@@ -139,7 +139,7 @@ protected:
 			{	g.erase(g.cbegin() + i);
 			 	i--;
 			}
-			if (g[i].right == w && g[i].left == u)
+			else if (g[i].right == w && g[i].left == u)
 			{
 				g.erase(g.cbegin() + i);
 				i--;
