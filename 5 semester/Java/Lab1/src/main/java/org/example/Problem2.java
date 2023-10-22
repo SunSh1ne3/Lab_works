@@ -3,7 +3,7 @@ package org.example;
 public class Problem2 {
     public static int[] segregateEvenAndOddNumbers(int[] array) {
         int left=0;
-        int right=array.length/2+1;
+        int right=array.length/2;
         int SortArr[]=new int[array.length];
         for(int i=0;i<array.length;i++)
         {
