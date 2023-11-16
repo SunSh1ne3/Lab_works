@@ -1,23 +1,25 @@
 package org.example;
-
 public class Problem2 {
     public static int[] segregateEvenAndOddNumbers(int[] array) {
-        int left=0;
-        int right=array.length/2;
-        int SortArr[]=new int[array.length];
-        for(int i=0;i<array.length;i++)
+        for(int i = 0; i < array.length; i++)
         {
-            if(array[i]%2==0)
+            if(array[i] % 2 == 0)
             {
-                SortArr[left]=array[i];
-                left++;
-            }
-            else
-            {
-                SortArr[right]=array[i];
-                right++;
+                int j = i-1;
+                while(j >= 0)
+                {
+                    if(array[j] % 2 == 1)
+                    {
+                        int tmp = array[j+1];
+                        array[j+1] = array[j];
+                        array[j] = tmp;
+                        j--;
+                    }
+                    else
+                        break;
+                }
             }
         }
-        return SortArr;
+        return array;
     }
 }
