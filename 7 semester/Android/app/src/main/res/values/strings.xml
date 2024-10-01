@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Labs</string>
+
+    <string name="helloText">Добро пожаловать!</string>
+    <string name="enterTitle">Вход</string>
+    <string name="registrationText">Регистрация</string>
+
+    <string name="by_number">По номеру</string>
+    <string name="by_email">По email</string>
+
+    <string name="enter_email">Введите email / телефон</string>
+    <string name="enter_phone">Введите номер телефона</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="confirm_password">Повторите пароль</string>
+
+    <string name="enter">Войти</string>
+    <string name="registration">Зарегестироваться</string>
+
+    <string name="checkBoxEnterAuto">Входить автоматически</string>
+
+
+    <string name="msg_error_PlusInNumber">Отсутствует + в номере телефона</string>
+    <string name="msg_error_Mail">Недопустимый адрес, отсутствует @ в email</string>
+    <string name="msg_error_SizePassword">Длина пароля менее 8 символов</string>
+    <string name="msg_error_MismatchPassword">Пароли не совпадают</string>
+    <string name="info_start">Подождите, система загружается.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="launch_price">Стартовая цена: </string>
+    <string name="launch_date">Дата запуска: </string>
+    <string name="camera_score">Оценка камеры: </string>
+
+
+</resources>
