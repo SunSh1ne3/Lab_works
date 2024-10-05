@@ -16,7 +16,6 @@ class ContentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_content)
         val bottom_nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
