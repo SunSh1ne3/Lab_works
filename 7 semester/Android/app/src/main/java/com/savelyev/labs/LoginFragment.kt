@@ -4,46 +4,47 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 
-
-class LoginActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.fragment_login)
-
-        // Для хранилища (если можно как-то ее сделать общую для всех, будет круто)
-        val storage = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+class LoginFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.fragment_login, container, false)
+        val navController = NavHostFragment.findNavController(this)
+        val storage = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
         //Поля
-        val enter_field = findViewById<EditText>(R.id.EmailField)
-        val password_field = findViewById<EditText>(R.id.PasswordField)
-        val checkbox = findViewById<CheckBox>(R.id.AutoEnterCheckBox)
+        val enter_field = root.findViewById<EditText>(R.id.EmailField)
+        val password_field = root.findViewById<EditText>(R.id.PasswordField)
+        val checkbox =root.findViewById<CheckBox>(R.id.AutoEnterCheckBox)
 
         //Кнопка входа
-        val enter_btn = findViewById<Button>(R.id.EnterButton)
+        val enter_btn = root.findViewById<Button>(R.id.EnterButton)
 
         enter_btn.setOnClickListener {
             if (CheckField(storage, enter_field.text.toString(), password_field.text.toString())){
                 if(GetDataCheckBox(storage) != checkbox.isChecked){
                     AddDataBoolean(storage, APP_PREFERENCES_checkbox, checkbox.isChecked)
                 }
-
                 startActivity(Intent(this,ContentActivity::class.java))
+                navController.navigate(R.id.registrationFragment)
             }
             else{
                 ShowToast("Неверный логин и пароль")
             }
         }
 
-
-
+        return root
     }
 
     fun ShowToast(Error: String){

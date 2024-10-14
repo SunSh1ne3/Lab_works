@@ -3,18 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/oneFragment">
 
     <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.savelyev.labs.FirstFragment"
-        android:label="FirstFragment">
+        android:id="@+id/oneFragment"
+        android:name="com.savelyev.labs.OneFragment"
+        android:label="OneFragment">
     </fragment>
 
     <fragment
-        android:id="@+id/secondFragment"
-        android:name="com.savelyev.labs.SecondFragment"
-        android:label="SecondFragment">
+        android:id="@+id/twoFragment"
+        android:name="com.savelyev.labs.TwoFragment"
+        android:label="TwoFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.savelyev.labs.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_oneFragment"
+            app:destination="@id/oneFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.savelyev.labs.LoginFragment"
+        android:label="LoginFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.savelyev.labs.RegistrationFragment"
+        android:label="RegistrationFragment">
     </fragment>
 
 

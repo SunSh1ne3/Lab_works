@@ -1,17 +1,14 @@
 package com.savelyev.labs
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.findFragment
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FirstFragment : Fragment() {
+class OneFragment : Fragment() {
 
     private val myApdater = PhonesApdater()
 
