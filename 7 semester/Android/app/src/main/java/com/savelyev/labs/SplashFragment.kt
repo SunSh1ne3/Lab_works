@@ -1,7 +1,6 @@
 package com.savelyev.labs
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -25,10 +24,9 @@ class SplashFragment : Fragment() {
         val navController = NavHostFragment.findNavController(this)
         val storage = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
-
         if (ReadDataUser(storage)) {
             if (GetDataCheckBox(storage)) {
-                navController.navigate(R.id.secondFragment)
+                navController.navigate(R.id.oneFragment)
             }
             else {
                 navController.navigate(R.id.loginFragment)

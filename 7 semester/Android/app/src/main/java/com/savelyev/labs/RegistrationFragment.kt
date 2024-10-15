@@ -20,7 +20,7 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_registration, container, false)
-        val navController = NavHostFragment.findNavController(this)
+        //val navController = NavHostFragment.findNavController(this)
         val storage = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
         val by_phone_Text = root.findViewById<TextView>(R.id.OnPhoneText)
@@ -70,22 +70,21 @@ class RegistrationFragment : Fragment() {
 
                 // Если данные записались
                 if(ReadDataUser(storage)){
-                    startActivity(Intent(this,ContentActivity::class.java))
-                    navController.navigate(R.id.)
+                    startActivity(Intent(requireContext(),ContentActivity::class.java))
+                    //navController.navigate(R.id.)
                 }
             }
 
         }
 
-
         return root
     }
-    fun ShowToast(Error: String){
-        Toast.makeText(this, Error, Toast.LENGTH_SHORT).show()
+
+    private fun ShowToast(Error: String){
+        Toast.makeText(requireContext(), Error, Toast.LENGTH_SHORT).show()
     }
 
-
-    fun CheckFields(EnterField: EditText,PasswordField: EditText, RepeatPasswordField: EditText): Boolean{
+    private fun CheckFields(EnterField: EditText,PasswordField: EditText, RepeatPasswordField: EditText): Boolean{
         when {
             ThisFieldIsMail(EnterField) && !EnterField.text.contains("@") && EnterField.text.isNotEmpty() -> {
                 ShowToast(resources.getString(R.string.msg_error_Mail))
@@ -114,10 +113,7 @@ class RegistrationFragment : Fragment() {
 
     }
 
-
-
-    fun ThisFieldIsMail(EnterField: EditText): Boolean{
+    private fun ThisFieldIsMail(EnterField: EditText): Boolean{
         return EnterField.hint.toString() == resources.getString(R.string.enter_email)
     }
-
 }

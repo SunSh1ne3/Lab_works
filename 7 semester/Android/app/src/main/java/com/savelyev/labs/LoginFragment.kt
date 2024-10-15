@@ -20,7 +20,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_login, container, false)
-        val navController = NavHostFragment.findNavController(this)
+        //val navController = NavHostFragment.findNavController(this)
         val storage = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
         //Поля
@@ -36,8 +36,8 @@ class LoginFragment : Fragment() {
                 if(GetDataCheckBox(storage) != checkbox.isChecked){
                     AddDataBoolean(storage, APP_PREFERENCES_checkbox, checkbox.isChecked)
                 }
-                startActivity(Intent(this,ContentActivity::class.java))
-                navController.navigate(R.id.registrationFragment)
+                startActivity(Intent(requireContext(),ContentActivity::class.java))
+               // navController.navigate(R.id.registrationFragment)
             }
             else{
                 ShowToast("Неверный логин и пароль")
@@ -47,11 +47,11 @@ class LoginFragment : Fragment() {
         return root
     }
 
-    fun ShowToast(Error: String){
-        Toast.makeText(this, Error, Toast.LENGTH_SHORT).show()
+    private fun ShowToast(Error: String){
+        Toast.makeText(requireContext(), Error, Toast.LENGTH_SHORT).show()
     }
 
-    fun CheckField(storage: SharedPreferences, enter_field: String, password_field: String): Boolean{
+    private fun CheckField(storage: SharedPreferences, enter_field: String, password_field: String): Boolean{
 
         val storage_login = storage.getString(APP_PREFERENCES_login, "");
         val storage_phone = storage.getString(APP_PREFERENCES_phone, "");

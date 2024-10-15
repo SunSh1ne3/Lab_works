@@ -1,11 +1,7 @@
 package com.savelyev.labs
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
@@ -20,10 +16,8 @@ class ContentActivity : AppCompatActivity() {
         val bottom_nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
+        //navController.navigate(R.id.splashFragment)
 
         bottom_nav.setupWithNavController(navController)
-
-
     }
 }
