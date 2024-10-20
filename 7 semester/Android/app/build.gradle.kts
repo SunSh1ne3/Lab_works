@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -49,4 +50,9 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    implementation(libs.firebase.bom)
+    implementation(libs.firebase.analytics)
+    // implementation(platform("com.google.firebase:firebase-bom: 31.5.0"))
+   // implementation ("com.google.firebase:firebase-analytics-ktx")
+   // implementation ("com.google.firebase:firebase-auth-ktx:20.0.2")
 }
