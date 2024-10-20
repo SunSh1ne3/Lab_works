@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:id="@+id/Element"
+        android:id="@+id/ll_Element"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,7 +18,7 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/NamePhone"
+            android:id="@+id/tv_NamePhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1. Название продукта"
@@ -31,12 +31,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/TitleLaunchPrice"
+                android:id="@+id/tv_TitleLaunchPrice"
                 android:text="@string/launch_price"
                 style="@style/RecycleTextView"/>
 
             <TextView
-                android:id="@+id/PricePhone"
+                android:id="@+id/tv_PricePhone"
                 android:text=" $1299"
                 style="@style/RecycleTextView"/>
         </LinearLayout>
@@ -47,12 +47,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/TitleLaunchDate"
+                android:id="@+id/tv_TitleLaunchDate"
                 android:text="@string/launch_date"
                 style="@style/RecycleTextView"/>
 
             <TextView
-                android:id="@+id/DatePhone"
+                android:id="@+id/tv_DatePhone"
                 android:text=" Сентябрь, 2022"
                 style="@style/RecycleTextView"/>
         </LinearLayout>
@@ -63,19 +63,16 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/TitleCameraScore"
+                android:id="@+id/tv_TitleCameraScore"
                 android:text="@string/camera_score"
                 style="@style/RecycleTextView"/>
 
             <TextView
-                android:id="@+id/ScorePhone"
+                android:id="@+id/tv_ScorePhone"
                 android:text=" 149"
                 style="@style/RecycleTextView"
                 android:textStyle="bold"/>
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
