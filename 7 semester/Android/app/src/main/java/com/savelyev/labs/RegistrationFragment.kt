@@ -1,7 +1,6 @@
 package com.savelyev.labs
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import androidx.fragment.app.Fragment
@@ -20,14 +19,14 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_registration, container, false)
-        //val navController = NavHostFragment.findNavController(this)
+        val navController = NavHostFragment.findNavController(this)
         val storage = requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
-        val by_phone_Text = root.findViewById<TextView>(R.id.OnPhoneText)
-        val by_email_Text = root.findViewById<TextView>(R.id.OnEmailText)
-        val enter_field = root.findViewById<EditText>(R.id.EmailField)
-        val password_field = root.findViewById<EditText>(R.id.PasswordField)
-        val repeat_password_field = root.findViewById<EditText>(R.id.RepeatPasswordField)
+        val by_phone_Text = root.findViewById<TextView>(R.id.tv_OnPhoneText)
+        val by_email_Text = root.findViewById<TextView>(R.id.tv_OnEmailText)
+        val enter_field = root.findViewById<EditText>(R.id.et_EmailField)
+        val password_field = root.findViewById<EditText>(R.id.et_PasswordField)
+        val repeat_password_field = root.findViewById<EditText>(R.id.et_RepeatPasswordField)
         val registration_button = root.findViewById<Button>(R.id.RegistrationButton)
 
 
@@ -70,8 +69,7 @@ class RegistrationFragment : Fragment() {
 
                 // Если данные записались
                 if(ReadDataUser(storage)){
-                    startActivity(Intent(requireContext(),ContentActivity::class.java))
-                    //navController.navigate(R.id.)
+                    navController.navigate(R.id.oneFragment)
                 }
             }
 
