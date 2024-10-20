@@ -6,7 +6,7 @@
     style="@style/PageStyle">
 
     <TextView
-        android:id="@+id/HelloText"
+        android:id="@+id/tv_HelloText"
         android:text="@string/helloText"
 
         style="@style/MainText"
@@ -17,12 +17,12 @@
     </TextView>
 
     <TextView
-        android:id="@+id/RegistrText"
+        android:id="@+id/tv_RegistrText"
         android:text="@string/registrationText"
 
         style="@style/MainText"
 
-        app:layout_constraintTop_toBottomOf="@+id/HelloText"
+        app:layout_constraintTop_toBottomOf="@+id/tv_HelloText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -30,7 +30,7 @@
 
 
     <LinearLayout
-        android:id="@+id/ChooseText"
+        android:id="@+id/ll_ChooseText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -38,16 +38,16 @@
         android:layout_marginEnd="@dimen/small_margin"
         android:layout_marginTop="@dimen/base_margin"
 
-        app:layout_constraintTop_toBottomOf="@+id/RegistrText">
+        app:layout_constraintTop_toBottomOf="@+id/tv_RegistrText">
 
         <TextView
-            android:id="@+id/OnPhoneText"
+            android:id="@+id/tv_OnPhoneText"
             android:text="@string/by_number"
             style="@style/StyleChoseButton">
         </TextView>
 
         <TextView
-            android:id="@+id/OnEmailText"
+            android:id="@+id/tv_OnEmailText"
             android:text="@string/by_email"
             style="@style/StyleChoseButton"
             android:textColor="@color/green"
@@ -58,16 +58,16 @@
 
 
     <LinearLayout
-        android:id="@+id/FormEdit"
+        android:id="@+id/ll_FormEdit"
         style="@style/StyleLinearField"
 
-        app:layout_constraintTop_toBottomOf="@id/ChooseText"
+        app:layout_constraintTop_toBottomOf="@id/ll_ChooseText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
 
         <EditText
-            android:id="@+id/EmailField"
+            android:id="@+id/et_EmailField"
             style="@style/TextField"
             android:hint="@string/enter_email"
             android:inputType="textEmailAddress">
@@ -75,14 +75,14 @@
         </EditText>
 
         <EditText
-            android:id="@+id/PasswordField"
+            android:id="@+id/et_PasswordField"
             style="@style/TextField"
             android:hint="@string/enter_password">
 
         </EditText>
 
         <EditText
-            android:id="@+id/RepeatPasswordField"
+            android:id="@+id/et_RepeatPasswordField"
             style="@style/TextField"
             android:hint="@string/confirm_password">
 

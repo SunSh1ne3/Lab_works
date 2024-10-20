@@ -6,7 +6,7 @@
     style="@style/PageStyle">
 
     <TextView
-        android:id="@+id/HelloText"
+        android:id="@+id/tv_HelloText"
         android:text="@string/helloText"
 
         style="@style/MainText"
@@ -17,14 +17,14 @@
     </TextView>
 
     <TextView
-        android:id="@+id/InfoHelloText"
+        android:id="@+id/tv_InfoHelloText"
         android:text="@string/info_start"
 
         style="@style/MainText"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HelloText">
+        app:layout_constraintTop_toBottomOf="@+id/tv_HelloText">
 
     </TextView>
 
@@ -37,9 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/InfoHelloText">
+        app:layout_constraintTop_toBottomOf="@id/tv_InfoHelloText">
     </ProgressBar>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
