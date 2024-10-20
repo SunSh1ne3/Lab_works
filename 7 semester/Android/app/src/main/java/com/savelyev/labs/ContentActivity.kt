@@ -8,16 +8,20 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ContentActivity : AppCompatActivity() {
+
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
+
+        setupBottomNavigationBar()
+    }
+
+    private fun setupBottomNavigationBar() {
         val bottom_nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        //navController.navigate(R.id.splashFragment)
-
         bottom_nav.setupWithNavController(navController)
     }
 }

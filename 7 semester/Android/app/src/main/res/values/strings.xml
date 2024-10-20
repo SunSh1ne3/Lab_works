@@ -8,7 +8,7 @@
     <string name="by_number">По номеру</string>
     <string name="by_email">По email</string>
 
-    <string name="enter_email">Введите email / телефон</string>
+    <string name="enter_email">Введите email</string>
     <string name="enter_phone">Введите номер телефона</string>
     <string name="enter_password">Введите пароль</string>
     <string name="confirm_password">Повторите пароль</string>
@@ -23,7 +23,10 @@
     <string name="msg_error_Mail">Недопустимый адрес, отсутствует @ в email</string>
     <string name="msg_error_SizePassword">Длина пароля менее 8 символов</string>
     <string name="msg_error_MismatchPassword">Пароли не совпадают</string>
+    <string name="msg_error">Неверный логин и пароль</string>
     <string name="info_start">Подождите, система загружается.</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="launch_price">Стартовая цена: </string>

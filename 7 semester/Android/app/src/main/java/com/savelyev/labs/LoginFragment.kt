@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
                // navController.navigate(R.id.registrationFragment)
             }
             else{
-                ShowToast("Неверный логин и пароль")
+                ShowToast(resources.getString(R.string.msg_error))
             }
         }
 

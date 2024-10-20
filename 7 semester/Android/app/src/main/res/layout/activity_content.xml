@@ -7,7 +7,6 @@
     style="@style/PageStyle"
     tools:context=".ContentActivity">
 
-
     <fragment
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
