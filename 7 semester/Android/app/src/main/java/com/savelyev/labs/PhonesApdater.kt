@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class PhonesApdater: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private var mPhonesList: ArrayList<PhoneModel> = ArrayList()
 
     fun setupPhones(phonesList: Array<PhoneModel>){
@@ -34,10 +35,10 @@ class PhonesApdater: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 class PhonesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
     fun bind(mPhones: PhoneModel){
-        itemView.findViewById<TextView>(R.id.NamePhone).text = mPhones.name
-        itemView.findViewById<TextView>(R.id.PricePhone).text = mPhones.price
-        itemView.findViewById<TextView>(R.id.DatePhone).text = mPhones.date
-        itemView.findViewById<TextView>(R.id.ScorePhone).text = mPhones.score
+        itemView.findViewById<TextView>(R.id.tv_NamePhone).text = mPhones.name
+        itemView.findViewById<TextView>(R.id.tv_PricePhone).text = mPhones.price
+        itemView.findViewById<TextView>(R.id.tv_DatePhone).text = mPhones.date
+        itemView.findViewById<TextView>(R.id.tv_ScorePhone).text = mPhones.score
     }
 }
 
