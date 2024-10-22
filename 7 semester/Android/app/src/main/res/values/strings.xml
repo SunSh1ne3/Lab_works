@@ -12,6 +12,7 @@
     <string name="enter_phone">Введите номер телефона</string>
     <string name="enter_password">Введите пароль</string>
     <string name="confirm_password">Повторите пароль</string>
+    <string name="enter_email_or_phone">Введите email/телефон</string>
 
     <string name="enter">Войти</string>
     <string name="registration">Зарегестироваться</string>
